@@ -1,0 +1,44 @@
+<section>
+  <h3>standings</h3>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>Player</th>
+        <th>Balance</th>
+        <th>Last Week</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each table }}
+      <tr class="{{#if self }}self{{/if }} {{#if breakeven }}breakeven{{/if}}">
+        <td><span class="sym {{ class }}">{{ symbol }} {{ rank }}</span></td>
+        <td><a href="/users/{{ id }}">{{ username }}</a></td>
+        <td><span>{{ balance }}</span></td>
+        <td>{{ prevbal }} ({{ prevrank }})</td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  .sym.up {
+    color: green;
+  }
+  .sym.down {
+    color: red;
+  }
+  .sym.level {
+    color: blue;
+  }
+
+  .self td {
+    background-color: #bbb;
+  }
+
+  .breakeven td {
+    border-top: 3px dashed #fee;
+  }
+</style>

@@ -1,0 +1,5 @@
+{"level":"error","message":"tried to delete match: 300 but predictions/bets exist","timestamp":"2017-07-12T14:31:31.287Z"}
+{"level":"error","message":"ReferenceError","timestamp":"2017-07-13T13:57:02.516Z"}
+{"level":"error","message":"Error","timestamp":"2017-07-13T14:01:24.903Z"}
+{"level":"error","message":"TypeError","timestamp":"2017-07-13T14:05:53.149Z"}
+{"level":"error","message":"TypeError","timestamp":"2017-07-13T15:14:05.535Z"}

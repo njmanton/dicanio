@@ -1,0 +1,64 @@
+/*@import url(normalize.min.css);*/
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css);
+@import url(easy-autocomplete.min.css);
+@import url(//cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css);
+
+footer {
+  background-color: #222;
+  color: #cccccc;
+  min-height: 2em;
+}
+
+.btn-odds {
+  width: 4.3rem;
+}
+
+.btn-odds.active {
+  background-color: #f29a02;
+  border-color: #e89402;
+}
+
+.banner {
+  background-color: #222;
+  color: #f88;
+  padding: 0.5em;
+  margin: 0;    
+}
+
+.header {
+  background-color: #00b;
+}
+
+.joker {
+  background: url("/img/joker_icon.png") no-repeat right top;
+}
+.pts1, .pts2 {
+  background-color: #f99;
+}
+.pts3, .pts6 {
+  background-color: #ffde01;
+}
+.pts5, .pts10{
+  background-color: #4dff4d;
+}
+
+input.score {
+  width: 3em;
+}
+
+@keyframes fin {
+  from {background-color: #7f7;}
+  to {background-color: #e8e8e8;}
+}
+
+@-webkit-keyframes fin {
+  from {background-color: #7f7;}
+  to {background-color: #e8e8e8;}
+}
+
+.ajaxChange {
+  animation-name: fin;
+  animation-duration: 2s;
+  -webkit-animation-name: fin;
+  -webkit-animation-duration: 2s;
+}

@@ -1,0 +1,79 @@
+<section>
+  
+  <h3>Admin Control Panel</h3>
+
+  <p>Hi, {{ user.username }}</p>
+
+
+  <section id="outstanding">
+    <h4>Outstanding matches</h4>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Week</th>
+          <th>Date</th>
+          <th>League</th>
+          <th>Fixture</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+    {{#each matches }}     
+        <tr>
+          <td>{{ week_id }}</td>
+          <td>{{ fdate }}</td>
+          <td>{{ league.name }}</td>
+          <td>{{ TeamA.name }} v {{ TeamB.name }}</td>
+          <td><input type="text" class="score" name="" pattern="\d{1,2}-\d{1,2}" placeholder="X-X" maxlength="5" data-mid="{{ id }}" /></td>
+        </tr>
+    {{/each }}        
+      </tbody>
+    </table>
+
+  </section>
+  <section>
+    <h4>Manage Week</h4>
+    <p>Some stuff here</p>
+  </section>
+  <section>
+
+    <h4>Add team/league</h4>
+    
+    <form action="/teams/add" method="post">
+      <label for="team">Add New Team: 
+        <input type="text" name="team" id="proposedTeam" />
+        <span role="alert" class="intrainput" id="team-dup"></span><br />
+      </label>
+      <input type="submit" id="addTeam" />
+    </form>
+
+    <form action="/leagues/add" method="post">
+      <label for="team">Add New League: 
+        <input type="text" name="league" id="proposedLeague" />
+        <span role="alert" class="intrainput" id="league-dup"></span><br />
+      </label>
+      <input type="submit" id="addLeague" />
+    </form> 
+
+
+  </section>
+  <section>
+    <h4>Manage user</h4>
+    <p>Select a user to manage their details.</p>
+    <form action="/admin/manage/users" method="post">
+      <select name="uid" id="ledgerUser">
+        {{#each users }}
+        <option value="{{ id }}">{{ username }}</option>
+        {{/each }}
+      </select>
+      <input type="submit" value="Manage" id="manageUser">    
+    </form>
+
+  </section>
+  <section>
+    <h4>Add post</h4>
+    <p>Some stuff here</p>
+  </section>
+
+</section>

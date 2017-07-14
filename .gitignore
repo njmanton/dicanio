@@ -1,0 +1,6 @@
+node_modules
+nodemon.json
+test
+config
+*.sublime*
+TODO.md

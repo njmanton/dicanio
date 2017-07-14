@@ -1,0 +1,15 @@
+<section>
+  <h2>All Leagues</h2>
+  <p>This is a list of all Leagues and cup competitions used in Goalmine. Click on an entry to see all matches for that league.</p>
+  <table class="f32">
+    {{#each leagues }}
+    <tr>
+      <td>
+       <span class="flag {{ country }}"></span>
+        <a href="/leagues/{{ id }}">{{ name }}</a>
+      </td>
+    </tr>
+    {{/each }}    
+  </table>
+
+</section>

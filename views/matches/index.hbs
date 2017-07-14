@@ -1,0 +1,25 @@
+<section>
+  <h2>Matches</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>League</th>
+        <th>Home</th>
+        <th>Away</th>
+        <th>Result</th>      
+      </tr>
+    </thead>
+    <tbody>
+      {{#each matches }}
+      <tr>
+        <td>{{ fdate }}</td>
+        <td><a href="/leagues/{{ league.id }}">{{ league.name }}</a></td>
+        <td><a href="/teams/{{ TeamA.id }}">{{ TeamA.name }}</a></td>
+        <td><a href="/teams/{{ TeamB.id }}">{{ TeamB.name }}</a></td>
+        <td>{{ result }}</td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+</section>

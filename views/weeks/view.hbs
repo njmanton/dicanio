@@ -1,0 +1,40 @@
+<section>
+  <h2>Week {{ week.id }}</h2>
+  <table id="weeksView" class="table">
+    <thead>
+      <tr>
+        {{#if user.admin}}
+        <th>&nbsp;</th>
+        {{/if }}
+        <th>Date</th>
+        <th>League</th>
+        <th>Fixture</th>
+        <th>Result</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each matches }}
+      <tr>
+        {{#if ../user.admin }}
+        <td><a title="manage" href="/matches/edit/{{ id }}" class="btn btn-sm btn-info">🛠</a></td>
+        {{/if }}
+        <td>{{ fdate }}</td>
+        <td><a href="/leagues/{{ league.id }}">{{ league.name }}</a></td>
+        <td><a href="/matches/{{ id }}">{{ fixture }}</a></td>
+        <td>{{ result }}</td>
+        <td>
+          {{#if goalmine }}<span title="goalmine" class="btn btn-sm btn-primary">G</span>{{/if }}
+          {{#if tipping }}<span title="tipping" class="btn btn-sm btn-success">T</span>{{/if }}
+          {{#if killer }}<span title="killer" class="btn btn-sm btn-info">K</span>{{/if }}
+        </td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+  <p>
+  {{#if user.admin }}
+  <a href="/matches/add/{{ week.id }}" class="btn btn-primary">Add Match</a>
+  {{/if }}
+  </p>
+</section>

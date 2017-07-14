@@ -1,0 +1,40 @@
+<section>
+  <h3>standings</h3>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>Player</th>
+        <th>Games</th>
+        <th>Points (lowest)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each table }}
+      <tr class="{{#if self }}self{{/if }}">
+        <td><span class="sym {{ class }}">{{ symbol }}</span> {{ rank }} ({{ prevrank }})</td>
+        <td><a href="/users/{{ id }}">{{ username }}</a></td>
+        <td>{{ games }}</td>
+        <td>{{ points }} ({{ min }})</td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  .sym.up {
+    color: green;
+  }
+  .sym.down {
+    color: red;
+  }
+  .sym.level {
+    color: blue;
+  }
+
+  .self td {
+    background-color: #bbb;
+  }
+</style>

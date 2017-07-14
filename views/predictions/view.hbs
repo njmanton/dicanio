@@ -1,0 +1,132 @@
+<section id="preds" data-uid="{{ user.id }}" data-week="{{ week }}">
+  <h3>Predictions - week {{ week }}</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>League</th>
+        <th>Fixture</th>
+        <th>Result</th>
+        {{#each players }}
+        <th><a href="/users/{{#if id }}{{ id }}{{ else }}{{ ../user.id }}{{/if }}">{{ user }}</a></th>
+        {{/each }}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each table }}    
+      <tr>
+        <td>{{ header.date }}</td>
+        <td>{{ header.league }}</td>
+        <td><a href="/matches/{{ header.id }}">{{ header.fixture }}</a> {{#if header.gotw }}(GotW){{/if}}</td>
+        <td>{{ header.result }}</td>
+        {{#each preds }}
+          {{#if ../../expired }}
+              <td class="pts{{ points }} {{#if joker}}joker{{/if }}">{{ pred }}</td>        
+          {{ else }}
+            {{#if @first }}
+              <td><input class="score" data-mid="{{#if match_id }}{{ match_id }}{{ else }}{{ ../../header.id }}{{/if }}" data-pid="{{ id }}" placeholder="X-X" pattern="\d{1,2}-\d{1,2}" maxlength="5" type="text" value="{{ pred }}" />
+              {{#unless @../first }}
+                <input type="radio" name="joker" data-mid="{{#if match_id }}{{ match_id }}{{ else }}{{ ../../header.id }}{{/if }}" {{#if joker }}checked="checked"{{/if}} value="{{ ../../header.id }}" />
+              {{/unless }}
+              </td>
+            {{ else }}
+              <td class="pts{{ points }} {{#if joker}}joker{{/if }}">{{ pred }}</td>
+            {{/if }}
+          {{/if }}
+        {{/each }}
+      </tr>
+      {{/each }}
+    </tbody>
+    <tfoot>
+      <tr style="font-weight: bold;">
+        <td>&nbsp;</td><td>&nbsp;</td>
+        <td>Total Goals</td>
+        <td>{{ totals }}</td>
+        {{#each players }}
+        {{#if points }}
+        <td class="{{#if closest }}pts1{{/if }}">{{ total }}</td>
+        {{ else }}
+        <td>&nbsp;</td>
+        {{/if }}
+        {{/each }}
+      </tr>
+      <tr style="font-weight: bold;">
+        <td>&nbsp;</td><td>&nbsp;</td>
+        <td>Total Points</td>
+        <td>&nbsp;</td>
+        {{#each players }}
+        {{#if points }}
+        <td>{{ points }}</td>
+        {{ else }}
+        <td>&nbsp;</td>
+        {{/if }}
+        {{/each }}
+      </tr>
+    </tfoot>
+  </table>
+</section>
+<section>
+  <h3>Standings</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each standings }}
+      <tr>
+        <td>{{ rank }}</td>
+        <td>{{ username }}</td>
+        <td>{{ points }}</td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+</section>
+
+<script>
+  $(document).ready(function() {
+
+    $('.score').on('change', function() {
+      var t = $(this);
+      var uid = $('#preds').data('uid');
+      t.parent().removeClass('ajaxChange');
+      $.post({
+        url: '/predictions/update',
+        data: {
+          pid: t.data('pid'),
+          mid: t.data('mid'),
+          uid: uid,
+          pred: t.val()
+        }
+      }).done(function(res) {
+        t.parent().addClass('ajaxChange');
+      }).fail(function(res) {
+        t.parent().removeClass('ajaxChange');
+      })
+    })
+
+    $('input:radio').on('click', function() {
+      var t = $(this);
+      var uid = $('#preds').data('uid');
+      var wid = $('#preds').data('week');
+      $.post({
+        url: '/predictions/joker',
+        data: {
+          uid: uid,
+          week: wid,
+          mid: t.data('mid')
+        }
+      }).done(function(res) {
+        console.log(res);
+      }).fail(function(res) {
+        console.log(res);
+      })
+    })
+
+  })
+</script>
+

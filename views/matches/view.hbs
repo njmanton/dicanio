@@ -1,0 +1,38 @@
+<section>
+  <div>
+    <span>{{ data.TeamA.name }}</span><span> {{ data.result }} </span><span>{{ data.TeamB.name }}</span>
+  </div>
+  <div>
+    {{ data.league.name }}, {{ data.fdate }}
+  </div>
+  {{#if data.predictions }}
+  <section>
+    <h3>Predictions</h3>
+    {{#each data.predictions }}
+    <p>
+      <span>{{ user.username }}</span> 
+      <span>{{ pred }}</span>
+      <span>{{ points }}</span>
+    </p>
+    {{/each }}
+  </section>
+  {{/if }}
+
+  {{#if data.bets }}
+  <section>
+    <h3>Bets</h3>
+    {{#each data.bets }}
+    <p>
+      <span>{{ user.username }}</span>
+      <span>{{ amount }}</span>
+      <span>{{ prediction }}</span>
+    </p>
+    {{/each }}
+  </section>
+  {{/if }}
+
+  {{#unless data.bets }}{{#unless data.predictions }}
+    <a class="btn btn-info" href="/matches/edit/{{ data.id }}">Edit</a>
+    <button data-mid="{{ data.id }}" data-week="{{ data.week_id }}" id="deleteMatch" class="btn btn-danger">Delete</button>
+  {{/unless }}{{/unless }}
+</section>

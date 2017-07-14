@@ -1,0 +1,28 @@
+<section>
+  <h2>{{ league.name }}</h2>
+
+  {{#if matches }}
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Fixture</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each matches }}
+      <tr>
+        <td>{{ fdate }}</td>
+        <td><a href="/matches/{{ id }}">{{ TeamA.name }} v {{ TeamB.name }}</a></td>
+        <td>{{ result }}</td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+  {{ else }}
+  <p>There are currently no matches associated with this league.</p>
+  {{#if user.admin }}<button id="leagueDelete" data-lid="{{ league.id }}" class="btn btn-danger">Delete</button>{{/if }}
+  {{/if }}
+</section>
