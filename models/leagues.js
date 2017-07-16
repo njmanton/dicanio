@@ -21,6 +21,11 @@ const leagues = (sequelize, DataTypes) => {
     sport: {
       type: DataTypes.STRING(20),
       allowNull: true
+    },
+    international: {
+      type: DataTypes.INTEGER(10),
+      allowNull: true,
+      defaultValue: 0
     }
   }, {
     tableName: 'leagues',
