@@ -7,6 +7,7 @@ var models              = require('../models'),
     passport            = require('passport'),
     logger              = require('winston'),
     config              = require('../config'),
+    moment              = require('moment'),
     LocalStrategy       = require('passport-local').Strategy,
     FacebookStrategy    = require('passport-facebook').Strategy,
     GoogleStrategy      = require('passport-google-oauth').OAuth2Strategy;
@@ -26,25 +27,26 @@ module.exports = app => {
         where: { username: username }
       }).then(user => {
         if (!user) {
-          logger.warn(`Unknown user '${ username }' attempted login`);
+          logger.error(`Unknown user '${ username }' attempted login`);
           return done(null, false, { message: 'user not found' });
         }
         try {
           if (!bCrypt.compareSync(password, user.password)) {
-            logger.warn(`Incorrect password for ${ user.username }`);
+            logger.info(`Incorrect password for ${ user.username }`);
             return done(null, false, { message: 'incorrect password' });
           }
         } catch(e) {
           console.log(e);
           return done(null, false, { message: bCrypt.hashSync('pyrite', bCrypt.genSaltSync(10), null) });
         }
-        user.update({ resetpwd: null }); // nullify reset code, if present
+        let now = moment().format('YYYY-MM-DD HH:mm:ss');
+        user.update({ resetpwd: null, lastlogin: now }); // nullify reset code, if present
         req.flash('success', 'logged in');
         logger.info(`${ user.username } logged in`);
         return done(null, user);
 
-      }).error(err => {
-        console.log('e', err);
+      }).catch(err => {
+        logger.info('Error finding user');
         return done(err);
       });
     }
