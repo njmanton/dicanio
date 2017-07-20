@@ -120,7 +120,7 @@ td.err {
   text-overflow: ellipsis; }
 
 .grid input[type="text"] {
-  width: 2em;
+  width: 3em;
   padding: 2px;
   vertical-align: middle;
   text-align: center;
