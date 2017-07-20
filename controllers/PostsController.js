@@ -10,9 +10,17 @@ const models  = require('../models'),
 const controller = {
 
   get_index: function(req, res) {
-    models.Post.findAll({}).then(posts => {
+    models.Post.findAll({
+      include: { 
+        model: models.User,
+        attributes: ['username', 'id']
+      },
+      attributes: ['id', 'title', 'body', 'sticky', 'createdAt', 'updatedAt'],
+      order: [['sticky', 'DESC'], ['updatedAt', 'DESC']]
+    }).then(posts => {
+      posts.map(post => { post.body = marked(post.body) });
       res.render('posts/index', {
-
+        data: posts
       });
     })
   },
@@ -27,7 +35,7 @@ const controller = {
 
   get_add: [utils.isAdmin, function(req, res) {
     res.render('posts/add', {
-
+      title: 'Create New Post'
     });
   }],
 
@@ -78,12 +86,14 @@ const controller = {
       sticky: req.body.sticky,
       author_id: usr.id || 0
     }
-    //res.send(`<pre>${ JSON.stringify(data, null, 2) }</pre>`);
+
     models.Post.create(data).then(p => {
-      console.log(p);
-      res.send('OK');
+      req.flash('success', `Post '${ p.title }' successfully added.`);
+      res.redirect('/posts');
     }).catch(e => {
-      console.log(e);
+      logger.error(e)
+      req.flash('error', 'Sorry, there was a problem creating that post');
+      res.redirect('/posts');
     })
   }],
 

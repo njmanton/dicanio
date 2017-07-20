@@ -27,7 +27,7 @@ db.Team.hasMany(db.Match);
 db.Match.belongsTo(db.Team, { as: 'TeamA', foreignKey: 'teama_id' });
 db.Match.belongsTo(db.Team, { as: 'TeamB', foreignKey: 'teamb_id' });
 
-db.User.hasMany(db.Post, { foreignKey: 'authod_id' });
+db.User.hasMany(db.Post, { foreignKey: 'author_id' });
 db.Post.belongsTo(db.User, { foreignKey: 'author_id' });
 
 // league 1:n match
@@ -68,7 +68,7 @@ db.Place.belongsTo(db.User, { foreignKey: 'user_id' });
 
 // week 1:n places
 db.Week.hasMany(db.Place, { foreignKey: 'week_id' });
-db.Place.belongsTo(db.Week, { foreignKey: 'week_id' })
+db.Place.belongsTo(db.Week, { foreignKey: 'week_id' });
 
 // user 1:n ledgers
 db.User.hasMany(db.Ledger, { foreignKey: 'user_id' });
