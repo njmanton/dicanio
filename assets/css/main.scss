@@ -1,0 +1,159 @@
+/*@import url(normalize.min.css);*/
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css);
+@import url(easy-autocomplete.min.css);
+@import url(//cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css);
+@import url(bootstrap-social.css);
+@import url(https://cdn.datatables.net/v/dt/dt-1.10.15/fc-3.2.2/datatables.min.css);
+
+body {
+  background-color: #333;
+}
+
+section {
+  background-color: #e8e8ee;
+}
+
+footer {
+  background-color: rgb(51, 51, 51);
+  color: #ccc;
+  min-height: 2em;
+}
+
+.btn-odds {
+  width: 4.3rem;
+}
+
+.btn-odds.active {
+  background-color: #f29a02;
+  border-color: #e89402;
+}
+
+.logo {
+  padding: 3rem 0;
+  img {
+    height: 14rem;
+    width: 14rem;
+    display: block;
+    margin: 0 auto;    
+  }
+}
+
+.panel {
+  background-color: rgb(51, 51, 51);
+  color: #ccc;
+  font-size: 1.1em;
+  padding: 0.8rem;
+}
+
+.banner {
+  background-color: #222;
+  color: #fff;
+  padding: 0.5em;
+  margin: 0;    
+}
+
+.backdrop {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: url(../img/stadium.jpg);
+  padding: 0;
+  min-height: 20em;
+}
+
+.dev {
+  background-color: #f33;
+}
+
+.header {
+  background-color: #00b;
+}
+
+.joker {
+  background: url("/img/joker_icon.png") no-repeat right top;
+}
+.pts1, .pts2 {
+  background-color: #f99;
+}
+.pts3, .pts6 {
+  background-color: #ffde01;
+}
+.pts5, .pts10{
+  background-color: #4dff4d;
+}
+
+input.score {
+  width: 3em;
+}
+
+@keyframes fin {
+  from {background-color: #7f7;}
+  to {background-color: #e8e8e8;}
+}
+
+@-webkit-keyframes fin {
+  from {background-color: #7f7;}
+  to {background-color: #e8e8e8;}
+}
+
+.ajaxChange {
+  animation-name: fin;
+  animation-duration: 2s;
+  -webkit-animation-name: fin;
+  -webkit-animation-duration: 2s;
+}
+
+.disableRow td {
+  background-color: #eee;
+  font-style: italic;
+}
+
+td.err {
+  color: #f00;
+}
+
+.grid {
+  .flag {
+    display: table-cell;
+  }
+  td, th {
+    height: 35px;
+    min-width: 35px;
+    font-size: 12px;
+    border: 1px solid #222 !important;
+    padding: 0;
+    line-height: 0;
+    text-align: center;
+    vertical-align: middle !important;
+    padding: 0 0.3em;
+  }
+  span {
+    padding-left: 30px;
+    padding-right: 8px;
+    max-width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  input[type="text"] {
+    width: 2em;
+    padding: 2px;
+    vertical-align: middle;
+    text-align: center;
+    margin-bottom: 0;
+    display: inline !important;
+  }
+  input[type="radio"] {
+    display: inline !important;
+    margin-bottom: 0;
+  }
+}
+
+.grid-header {
+  white-space: nowrap;
+  padding: 0 0.5em !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 230px !important;
+}

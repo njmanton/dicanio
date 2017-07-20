@@ -1,4 +1,6 @@
-<section class="banner {{ header }}">
+<section class="banner {{ dev }}">
+  <span><a href="/">HOME</a></span>
   <span>{{#if user }}{{ user.username }} | <a href="/logout">logout</a>{{ else }}<a href="/login">login</a>{{/if }}</span>
-  <span>| {{#if curweek}}Week: {{ curweek.id }}{{/if }}</span>
+  <span>{{#if curweek }}| Week: {{ curweek }}{{/if }}</span>
+  <span>{{#if user.admin }}| <a href="/admin">Admin</a>{{/if }}</span>
 </section>

@@ -84,7 +84,7 @@ const bets = (sequelize, DataTypes) => {
             if (utils.validScore(match.result)) {
               const goals = match.result.split('-');
               if (goals[0] > goals[1]) {
-                result = '1'; winner = match.TeamA.name;
+                result = '1'; winner = match.TeamA.sname;
               } else if (goals[0] < goals[1]) {
                 result = '2'; winner = match.TeamB.sname;
               } else {
@@ -97,7 +97,7 @@ const bets = (sequelize, DataTypes) => {
                   header: {
                     id: mid,
                     date: moment(match.date).format('ddd DD MMM'),
-                    fixture: [match.TeamA.name, match.TeamB.name].join(' v '),
+                    fixture: [match.TeamA.sname, match.TeamB.sname].join(' v '),
                     result: winner,
                     return: match.result ? match['odds' + result] : '-'      
                   },
@@ -112,12 +112,13 @@ const bets = (sequelize, DataTypes) => {
                 row.bets.push(null);
               } else {
                 if (scan.prediction == '1') {
-                  scan.prediction = match.TeamA.name;
+                  scan.prediction = match.TeamA.sname;
                 } else if (scan.prediction == '2') {
-                  scan.prediction = match.TeamB.name;
+                  scan.prediction = match.TeamB.sname;
                 } else {
                   scan.prediction = 'Draw';
                 }
+                scan.win = (scan.outcome > 0);
                 row.bets.push(scan);
               }
             }

@@ -32,6 +32,7 @@
     "group-array": "^0.3.0",
     "lodash": "^4.5.1",
     "mailgun-js": "^0.7.7",
+    "marked": "^0.3.6",
     "mysql": "^2.10.2",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.0",

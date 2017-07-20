@@ -12,7 +12,7 @@ const controller = {
   get_index: function(req, res) {
 
     models.League.findAll({
-      attributes: ['id', 'name', 'country']
+      attributes: ['id', 'name', 'country', 'sport', 'international']
     }).then( leagues => {
       if (req.query.json === undefined) {
         res.render('leagues/index', {

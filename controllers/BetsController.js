@@ -4,6 +4,7 @@
 const models  = require('../models'),
       Promise = require('bluebird'),
       utils   = require('../utils'),
+      logger  = require('winston'),
       moment  = require('moment');
 
 const controller = {
@@ -11,15 +12,25 @@ const controller = {
   get_id_edit: [utils.isAuthenticated, function(req, res, id) {
     models.Week.current().then(wk => {
       let week = id || wk.id;
-      let uid = req.user ? req.user.id : 1;
-      models.Bet.getBets(week, uid).then(matches => {
-        res.render('bets/edit', {
-          title: 'Edit Bet',
-          data: matches,
-          expired: false,
-          week: week
-        })
-      })  
+      let uid = req.user ? req.user.id : null;
+      let expired = (moment(wk.start) < moment()) || wk.status;
+      if (expired) {
+        req.flash('error', `The deadline has passed for week ${ id }, you can no longer edit bets`);
+        res.redirect('/weeks/' + id);
+      } else {
+        models.Bet.getBets(week, uid).then(matches => {
+          res.render('bets/edit', {
+            title: 'Edit Bet',
+            data: matches,
+            expired: expired,
+            week: week
+          })
+        }).catch(e => {
+          logger.error(`There was a problem with 'getBets' for week ${ id }. This has been logged.`);
+          res.redirect('/weeks/' + id);
+        })     
+      }
+
     })
   }],
 
@@ -27,27 +38,29 @@ const controller = {
     
     if (!isNaN(id)) {
 
-      let user = req.user ? req.user : {};
-      let table   = models.Bet.table(id, user),
+      let user    = req.user ? req.user : {},
+          table   = models.Bet.table(id, user),
+          week    = models.Week.findById(id),
           overall = models.Place.overall(null, id, true);
 
-      Promise.join(table, overall, (bets, overall) => {
+      Promise.join(week, table, overall, (wk, bets, overall) => {
         if (bets !== null) {
+          let expired = (moment(wk.start) < moment()) || wk.status;
           res.render('bets/view', {
             title: 'Bets',
             week: id,
             players: bets.players,
             table: bets.table,
             standings: overall,
-            expired: false,
+            expired: expired,
           })
         } else {
-          res.sendStatus(404);
+          res.status(404).render('errors/404');
         }
       })
 
     } else {
-      res.sendStatus(404);
+      res.status(404).render('errors/404');
     }
 
   },
@@ -59,7 +72,6 @@ const controller = {
       req.flash('success', `You updated ${ r } bets`);
       res.redirect('/bets/' + req.body.week);
     })
-    //res.send(`<pre>${ JSON.stringify(req.body, null, 2) }(</pre>`);
   }]
 
 }

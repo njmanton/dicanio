@@ -14,6 +14,7 @@ const Sequelize = require('sequelize'),
         Kentry:      sequelize.import('./kentries.js'),
         Week:        sequelize.import('./weeks.js'),
         Standing:    sequelize.import('./standings.js'),
+        Post:        sequelize.import('./posts.js'),
         Place:       sequelize.import('./places.js'),
         Ledger:      sequelize.import('./ledgers.js')
       };
@@ -25,6 +26,9 @@ const Sequelize = require('sequelize'),
 db.Team.hasMany(db.Match);
 db.Match.belongsTo(db.Team, { as: 'TeamA', foreignKey: 'teama_id' });
 db.Match.belongsTo(db.Team, { as: 'TeamB', foreignKey: 'teamb_id' });
+
+db.User.hasMany(db.Post, { foreignKey: 'authod_id' });
+db.Post.belongsTo(db.User, { foreignKey: 'author_id' });
 
 // league 1:n match
 db.League.hasMany(db.Match, { foreignKey: 'league_id' });

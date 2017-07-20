@@ -61,8 +61,8 @@ const utils = {
   isAuthenticated: (req, res, next) => {
     if (req.isAuthenticated() || debug.cfg.allowCurlAuth) {
       models.Week.current().then(wk => {
-        res.locals.curweek = wk;
-        return next();        
+        res.locals.curweek = wk.id;
+        return next();
       })
     } else {
       req.session.returnTo = req.url;
@@ -81,7 +81,7 @@ const utils = {
   isAdmin: (req, res, next) => {
     if ((req.isAuthenticated() && req.user.admin == 1) || debug.cfg.allowCurlAdmin) {
       models.Week.current().then(wk => {
-        res.locals.curweek = wk;
+        res.locals.curweek = wk.id;
         return next();
       })
     } else {

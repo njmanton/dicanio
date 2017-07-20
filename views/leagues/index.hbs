@@ -6,7 +6,7 @@
     <tr>
       <td>
        <span class="flag {{ country }}"></span>
-        <a href="/leagues/{{ id }}">{{ name }}</a>
+        <a href="/leagues/{{ id }}">{{ name }}</a> {{#if sport }}({{ sport }}){{/if }}
       </td>
     </tr>
     {{/each }}    

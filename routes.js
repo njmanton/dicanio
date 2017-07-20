@@ -1,11 +1,10 @@
-// routes.js
-// define non-model URL routes for app
-
 // jshint node: true, esversion: 6
 'use strict';
 
+
 const models    = require('./models'),
       moment    = require('moment'),
+      marked    = require('marked'),
       mail      = require('./mail'),
       fs        = require('fs'),
       gravatar  = require('gravatar'),
@@ -16,9 +15,24 @@ const models    = require('./models'),
 const routes = app => {
 
   app.get('/', (req, res) => {
-    res.render('main', {
-      title: 'Welcome'
-    });
+    let threeMonthsAgo = moment().subtract(3, 'months').format('YYYY-MM-DD');
+    models.Post.findAll({
+      where: { updatedAt: { $gte: threeMonthsAgo }, },
+      attributes: ['title', 'body', 'author_id', 'createdAt', 'updatedAt'],
+      include: {
+        model: models.User,
+        attributes: ['username']
+      },
+      order: [['sticky', 'desc'], ['createdAt', 'desc']]
+    }).then(posts => {
+      posts.map(post => {
+        post.body = marked(post.body)
+      })
+      res.render('main', {
+        title: 'Welcome',
+        posts: posts
+      });      
+    })
   });
 
   // login

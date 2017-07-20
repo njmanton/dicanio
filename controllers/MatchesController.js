@@ -99,8 +99,10 @@ const controller = {
       if (match) {
         res.render('matches/view', {
           title: 'Match ' + match.id,
-          data: match
-        })        
+          data: match,
+          result: match.result || 'v',
+          editable: match.predictions.length == 0 && match.bets.length == 0
+        })
       } else {
         res.status(404).render('errors/404');
       }
@@ -286,7 +288,6 @@ const controller = {
           if (tp == 10) {
             req.flash('info', 'There are already 10 tipping matches this week. Are you sure you want to add another?');
           }
-          console.log('controller', match);
           res.render('matches/add', {
             title: 'edit match',
             week: wk.id,

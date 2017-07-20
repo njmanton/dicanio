@@ -3,7 +3,7 @@ $(document).ready(function() {
   // auto clear message boxes after 3s
   window.setTimeout(function() {
     $('.alert .close').click();
-  }, 4000);
+  }, 3000);
   
   $('button.del').on('click', function() {
     var mid = $(this).data('mid');
@@ -338,5 +338,31 @@ $(document).ready(function() {
     } 
     checkResetForm();     
   })
+
+  $('#getPreview').on('click', function() {
+    console.log($('#postAddBody').val());
+    $.post({
+      url: '/posts/preview',
+      data: {
+        body: $('#postAddBody').val()
+      }
+    }).done(function(res) {
+      console.log(res);
+      $('#postAddPreview').html(res);
+    })
+  })
+
+  // $('#betGrid').dataTable({
+  //   border: 0,
+  //   scrollX: true,
+  //   paging: false,
+  //   searching: false,
+  //   ordering: false,
+  //   info: false,
+  //   //columnDefs: [{ width: '90%', targets: 0}],
+  //   fixedColumns: {
+  //     leftColumns: 4
+  //   }
+  // })
 
 })

@@ -29,7 +29,7 @@ const weeks = (sequelize, DataTypes) => {
               now     = moment().format('YYYY-MM-DD');
         return models.Week.findOne({
           where: { start: { $lte: now }, status: 0 },
-          attributes: ['id'],
+          attributes: ['id', 'start', 'status'],
           order: 'start DESC',
           raw: true
         }).then(week => {
@@ -78,7 +78,6 @@ const weeks = (sequelize, DataTypes) => {
               amount: -1,
               description: 'Entry for week ' + wid
             }).catch(e => {
-              console.log(e);
               logger.error(e);
             }));
           }
@@ -90,7 +89,6 @@ const weeks = (sequelize, DataTypes) => {
               amount: winnings,
               description: 'Winnings for week ' + wid
             }).catch(e => {
-              console.log(e);
               logger.error(e);
             }));
           }
@@ -101,14 +99,12 @@ const weeks = (sequelize, DataTypes) => {
             amount: p.length * (config.goalmine.win_pct - 1),
             description: 'Pot for week ' + wid
           }).catch(e => {
-            console.log(e);
             logger.error(e);
           }));
           logger.info(`Adding Goalmine pot ledger for week ${ wid }`);
         }).then(() => {
           return Promise.all(ledgers);
         }).catch(e => {
-          console.log(e);
           logger.error(e);
         })
       }

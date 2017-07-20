@@ -1,12 +1,12 @@
 <section id="preds" data-uid="{{ user.id }}" data-week="{{ week }}">
   <h3>Predictions - week {{ week }}</h3>
-  <table class="table">
+  <table class="table f32 grid">
     <thead>
       <tr>
-        <th>Date</th>
-        <th>League</th>
-        <th>Fixture</th>
-        <th>Result</th>
+        <th class="grid-header">Date</th>
+        <th class="grid-header">League</th>
+        <th class="grid-header">Fixture</th>
+        <th class="grid-header">Result</th>
         {{#each players }}
         <th><a href="/users/{{#if id }}{{ id }}{{ else }}{{ ../user.id }}{{/if }}">{{ user }}</a></th>
         {{/each }}
@@ -15,10 +15,10 @@
     <tbody>
       {{#each table }}    
       <tr>
-        <td>{{ header.date }}</td>
-        <td>{{ header.league }}</td>
-        <td><a href="/matches/{{ header.id }}">{{ header.fixture }}</a> {{#if header.gotw }}(GotW){{/if}}</td>
-        <td>{{ header.result }}</td>
+        <td class="grid-header">{{ header.date }}</td>
+        <td class="grid-header flag {{ header.country }}"><span class="league">{{ header.league }}</span></td>
+        <td class="grid-header"><a href="/matches/{{ header.id }}">{{ header.fixture }}</a> {{#if header.gotw }}(GotW){{/if}}</td>
+        <td class="grid-header">{{ header.result }}</td>
         {{#each preds }}
           {{#if ../../expired }}
               <td class="pts{{ points }} {{#if joker}}joker{{/if }}">{{ pred }}</td>        

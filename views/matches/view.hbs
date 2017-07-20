@@ -1,6 +1,6 @@
 <section>
   <div>
-    <span>{{ data.TeamA.name }}</span><span> {{ data.result }} </span><span>{{ data.TeamB.name }}</span>
+    <span>{{ data.TeamA.name }}</span><span> {{ result }} </span><span>{{ data.TeamB.name }}</span>
   </div>
   <div>
     {{ data.league.name }}, {{ data.fdate }}
@@ -31,8 +31,8 @@
   </section>
   {{/if }}
 
-  {{#unless data.bets }}{{#unless data.predictions }}
+  {{#if editable }}
     <a class="btn btn-info" href="/matches/edit/{{ data.id }}">Edit</a>
     <button data-mid="{{ data.id }}" data-week="{{ data.week_id }}" id="deleteMatch" class="btn btn-danger">Delete</button>
-  {{/unless }}{{/unless }}
+  {{/if }}
 </section>

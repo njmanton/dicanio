@@ -1,4 +1,8 @@
 <section>
-  <h1>Hello, world</h1>
-  <p>This is {{ pkg.name }}, v{{ pkg.version }}</p>
+  <div class="panel col-sm-12" style="padding: 0.5rem 16.67%;">
+    {{#each posts }}
+    <p>{{ user.username }}</p>
+    <p>{{{ body }}}</p>
+    {{/each }}
+  </div>
 </section>
