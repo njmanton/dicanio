@@ -75,16 +75,20 @@ db.User.hasMany(db.Ledger, { foreignKey: 'user_id' });
 db.Ledger.belongsTo(db.User, { foreignKey: 'user_id' });
 
 // killer 1:n kentry
-// db.Killer.hasMany(db.Kentry, { foreignKey: 'killer_id' });
-// db.Kentry.belongsTo(db.Killer, { foreignKey: 'killer_id' });
+db.Killer.hasMany(db.Kentry, { foreignKey: 'killer_id' });
+db.Kentry.belongsTo(db.Killer, { foreignKey: 'killer_id' });
 
 // match 1:n kentry
-//db.Match.hasMany(db.Kentry, { foreignKey: 'match_id' });
-//db.Kentry.belongsTo(db.Match, { foreignKey: 'match_id' });
+db.Match.hasMany(db.Kentry, { foreignKey: 'match_id' });
+db.Kentry.belongsTo(db.Match, { foreignKey: 'match_id' });
 
 // user 1:n kentry
-// db.User.hasMany(db.Kentry, { foreignKey: 'user_id' });
-// db.Kentry.belongsTo(db.User, { foreignKey: 'user_id' });
+db.User.hasMany(db.Kentry, { foreignKey: 'user_id' });
+db.Kentry.belongsTo(db.User, { foreignKey: 'user_id' });
+
+// user 1:n killer
+db.User.hasMany(db.Killer, { foreignKey: 'admin_id' });
+db.Killer.belongsTo(db.User, { foreignKey: 'admin_id' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
