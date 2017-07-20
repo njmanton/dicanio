@@ -10,7 +10,7 @@ const models  = require('../models'),
 const controller = {
 
   get_id_edit: [utils.isAuthenticated, function(req, res, id) {
-    models.Week.current().then(wk => {
+    models.Week.findById(id).then(wk => {
       let week = id || wk.id;
       let uid = req.user ? req.user.id : null;
       let expired = (moment(wk.start) < moment()) || wk.status;
