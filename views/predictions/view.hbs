@@ -14,19 +14,21 @@
     </thead>
     <tbody>
       {{#each table }}    
-      <tr>
-        <td class="grid-header">{{ header.date }}</td>
-        <td class="grid-header flag {{ header.country }}"><span class="league">{{ header.league }}</span></td>
-        <td class="grid-header"><a href="/matches/{{ header.id }}">{{ header.fixture }}</a> {{#if header.gotw }}(GotW){{/if}}</td>
-        <td class="grid-header">{{ header.result }}</td>
+      <tr data-mid="{{ header.id }}">
+        {{#with header }}
+        <td class="grid-header">{{ date }}</td>
+        <td class="grid-header flag {{ country }}"><span class="league">{{ league }}</span></td>
+        <td class="grid-header"><a href="/matches/{{ id }}">{{ fixture }}</a> {{#if gotw }}(GotW){{/if}}</td>
+        <td class="grid-header">{{ result }}</td>
+        {{/with }}
         {{#each preds }}
           {{#if ../../expired }}
               <td class="pts{{ points }} {{#if joker}}joker{{/if }}">{{ pred }}</td>        
           {{ else }}
             {{#if @first }}
-              <td><input class="score" data-mid="{{#if match_id }}{{ match_id }}{{ else }}{{ ../../header.id }}{{/if }}" data-pid="{{ id }}" placeholder="X-X" pattern="\d{1,2}-\d{1,2}" maxlength="5" type="text" value="{{ pred }}" />
+              <td><input class="score" data-mid="{{#if match_id }}{{ match_id }}{{ else }}{{ ../header.id }}{{/if }}" data-pid="{{ id }}" placeholder="X-X" pattern="\d{1,2}-\d{1,2}" maxlength="5" type="text" value="{{ pred }}" />
               {{#unless @../first }}
-                <input type="radio" name="joker" data-mid="{{#if match_id }}{{ match_id }}{{ else }}{{ ../../header.id }}{{/if }}" {{#if joker }}checked="checked"{{/if}} value="{{ ../../header.id }}" />
+                <input type="radio" name="joker" data-mid="{{#if match_id }}{{ match_id }}{{ else }}{{ ../header.id }}{{/if }}" {{#if joker }}checked="checked"{{/if}} value="{{ ../header.id }}" />
               {{/unless }}
               </td>
             {{ else }}
@@ -88,7 +90,7 @@
   </table>
   {{/if }}
 </section>
-
+  
 <script>
   $(document).ready(function() {
 
@@ -96,18 +98,20 @@
       var t = $(this);
       var uid = $('#preds').data('uid');
       t.parent().removeClass('ajaxChange');
+      var mid = t.data('mid') || t.parent().parent().data('mid');
       $.post({
         url: '/predictions/update',
         data: {
           pid: t.data('pid'),
-          mid: t.data('mid'),
+          mid: mid,
           uid: uid,
           pred: t.val()
         }
       }).done(function(res) {
         t.parent().addClass('ajaxChange');
+        console.log(res);
       }).fail(function(res) {
-        t.parent().removeClass('ajaxChange');
+        console.log(res);
       })
     })
 

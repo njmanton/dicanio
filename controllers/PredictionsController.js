@@ -29,7 +29,7 @@ const controller = {
           expired: expired
         })
       } else {
-        res.sendStatus(404);
+        res.status(404).render('errors/404');
       }
     })
 
@@ -37,7 +37,8 @@ const controller = {
 
   post_update: [utils.isAuthenticated, function(req, res) {
 
-    if (req.body.pred != '' && req.body.uid != '' && req.body.mid != '' && utils.validScore(req.body.pred)) {
+    if (req.body.pred.length && req.body.uid.length && req.body.mid.length && utils.validScore(req.body.pred)) {
+
       let save = {
         match_id: req.body.mid,
         user_id: req.body.uid,
@@ -55,7 +56,12 @@ const controller = {
         }
       })
     } else {
-      res.sendStatus(400);
+      console.log('error');
+      let errs = [];
+      if (!req.body.pred) errs.push('prediction');
+      if (!req.body.uid) errs.push('user');
+      if (!req.body.mid) errs.push('match');
+      res.status(400).send({ msg: 'missing parameters', params: errs });
     }
   }],
 
