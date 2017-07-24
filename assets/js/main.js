@@ -352,17 +352,44 @@ $(document).ready(function() {
     })
   })
 
-  // $('#betGrid').dataTable({
-  //   border: 0,
-  //   scrollX: true,
-  //   paging: false,
-  //   searching: false,
-  //   ordering: false,
-  //   info: false,
-  //   //columnDefs: [{ width: '90%', targets: 0}],
-  //   fixedColumns: {
-  //     leftColumns: 4
-  //   }
-  // })
+  $('#predTable .score').on('change', function() {
+    var t = $(this);
+    var uid = $('#preds').data('uid');
+    t.parent().removeClass('ajaxChange');
+    var mid = t.data('mid') || t.parent().parent().data('mid');
+    $.post({
+      url: '/predictions/update',
+      data: {
+        pid: t.data('pid'),
+        mid: mid,
+        uid: uid,
+        pred: t.val()
+      }
+    }).done(function(res) {
+      t.parent().addClass('ajaxChange');
+      console.log(res);
+    }).fail(function(res) {
+      console.log(res);
+    })
+  })
+
+  $('#predTable input:radio').on('click', function() {
+    var t = $(this);
+    var uid = $('#preds').data('uid');
+    var wid = $('#preds').data('week');
+    var mid = t.data('mid') || t.parent().parent().data('mid');
+    $.post({
+      url: '/predictions/joker',
+      data: {
+        uid: uid,
+        week: wid,
+        mid: mid
+      }
+    }).done(function(res) {
+      console.log(res);
+    }).fail(function(res) {
+      console.log(res);
+    })
+  })
 
 })
