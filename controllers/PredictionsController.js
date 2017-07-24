@@ -56,7 +56,6 @@ const controller = {
         }
       })
     } else {
-      console.log('error');
       let errs = [];
       if (!req.body.pred) errs.push('prediction');
       if (!req.body.uid) errs.push('user');
@@ -92,7 +91,7 @@ const controller = {
 
       })
     } else {
-      res.sendStatus(400);
+      res.status(400).send({ msg: 'Could not update joker' });
     }
   }]
 
