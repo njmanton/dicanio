@@ -16,7 +16,7 @@ const controller = {
 
     Promise.join(outstanding, users, (outstanding, users) => {
       res.render('admin/index', {
-        title: 'Admin',
+        title: 'Admin Pages',
         user: req.user,
         matches: outstanding,
         users: users,
@@ -120,18 +120,17 @@ const controller = {
       models.User.findById(req.body.uid).then(user => {
         if (user) {
           res.render('players/view', {
-            title: 'User',
+            title: 'User ' + user.username,
             player: user,
             admin: true
           })
         } else {
-          req.flash('error', 'No such user');
+          req.flash('error', 'Sorry, no such user');
           res.redirect(req.url);
         }
       }).catch(e => {
-        if (e) {
-          console.log(e);
-        }
+        logger.error(e);
+        console.log(e);
       })
     } else {
       req.flash('error', 'No such user');
@@ -144,7 +143,6 @@ const controller = {
     models.Week.finalise(week).then(response => {
       res.send(response);
     })
-
   }]
 
 }
