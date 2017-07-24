@@ -76,7 +76,7 @@ const controller = {
           m.killer = (m.game & 4) != 0;
         });
         res.render('weeks/view', {
-          title: 'Week' + week.id,
+          title: 'Week ' + week.id,
           week: week,
           matches: matches
         });

@@ -20,6 +20,7 @@ const controller = {
     }).then(posts => {
       posts.map(post => { post.body = marked(post.body) });
       res.render('posts/index', {
+        title: 'Posts',
         data: posts
       });
     })

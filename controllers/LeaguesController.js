@@ -16,7 +16,7 @@ const controller = {
     }).then( leagues => {
       if (req.query.json === undefined) {
         res.render('leagues/index', {
-          title: 'All Leagues | Goalmine',
+          title: 'All Leagues',
           leagues: leagues
         })        
       } else {

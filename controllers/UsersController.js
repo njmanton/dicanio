@@ -22,7 +22,8 @@ const controller = {
         res.render('players/view', {
           title: user.username,
           player: user,
-          preds: preds
+          preds: preds,
+          admin: false
         })
       } else {
         res.status(404).render('errors/404');
@@ -89,7 +90,7 @@ const controller = {
         res.redirect('/');
       } else {
         res.render('players/reset', {
-          title: 'Goalmine | Reset Password',
+          title: 'Reset Password',
           username: user.username
         });
       }

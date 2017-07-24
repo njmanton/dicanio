@@ -15,7 +15,7 @@ const controller = {
       raw: true
     }).then( teams => {
       res.render('teams/index', {
-        title: 'All Teams | Goalmine',
+        title: 'All Teams',
         teams: teams
       })
     });
