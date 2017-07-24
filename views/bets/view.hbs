@@ -43,6 +43,7 @@
 
   {{# unless expired }}<a href="/bets/{{ week }}/edit" class="btn btn-primary">Edit Bets</a>{{/unless }}
 </section>
+{{#if standings }}
 <section>
   <h3>Standings</h3>
   <table class="table">
@@ -64,6 +65,7 @@
     </tbody>
   </table>
 </section>
+{{/if }}
 <style>
   table {
     table-layout: fixed; 
