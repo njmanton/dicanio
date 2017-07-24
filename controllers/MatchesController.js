@@ -58,7 +58,7 @@ const controller = {
         m.fdate = moment(m.date).format('ddd MM YY');
       });
       res.render('matches/index', {
-        title: 'All Matches | Goalmine',
+        title: 'All Matches',
         matches: matches
       })
     })
@@ -92,11 +92,11 @@ const controller = {
         include: {
           model: models.User,
           attributes: ['id', 'username']
-        }        
+        }
       }],
     }).then(match => {
-      match.fdate = moment(match.date).format('ddd DD MMM');
       if (match) {
+        match.fdate = moment(match.date).format('ddd DD MMM');
         res.render('matches/view', {
           title: 'Match ' + match.id,
           data: match,
@@ -160,7 +160,7 @@ const controller = {
         }
         models.Match.findAll({
           where: { week_id: id },
-          attributes: ['id', 'game', 'date'],
+          attributes: ['id', 'game', 'date', 'gotw'],
           include: [{
             model: models.Team,
             as: 'TeamA',
@@ -180,15 +180,18 @@ const controller = {
             attributes: ['id']
           }]
         }).then(matches => {
-          let gm = 0, tp = 0;
+          let gm = 0, tp = 0, gotw = false;
           matches.map(m => {
             m.fdate = moment(m.date).format('ddd DD MMM');
             if ((m.game & 2) != 0) {
               tp++;
+              m.tipping = true;
             }
             if ((m.game & 1) != 0) {
               gm++;
+              m.goalmine = true;
             }
+            if (m.gotw) gotw = true;
           })
           if (gm == 12) {
             req.flash('info', 'There are already 12 goalmine matches this week. You will need to delete one before adding a new match');
@@ -197,11 +200,12 @@ const controller = {
             req.flash('info', 'There are already 10 tipping matches this week. Are you sure you want to add another?');
           }
           res.render('matches/add', {
-            title: 'add match',
+            title: 'Add Match',
             week: wk.id,
             matches: matches,
             dates: dates,
-            goalmine: (gm == 12)
+            goalmine: (gm == 12),
+            gotw: gotw
           })
         }).catch(e => { logger.error(e); })        
       }
@@ -212,7 +216,7 @@ const controller = {
   get_edit_id: [utils.isAdmin, function(req, res, id) {
     // in this case, id is the match id, not week
     models.Match.findById(id, {
-      attributes: ['id', 'date', 'week_id', 'odds1', 'odds2', 'oddsX', 'game'],
+      attributes: ['id', 'date', 'week_id', 'gotw', 'odds1', 'odds2', 'oddsX', 'game'],
       include: [{
         model: models.Week,
         attributes: ['id', 'status', 'start']
@@ -252,7 +256,7 @@ const controller = {
         }
         models.Match.findAll({
           where: { week_id: wk.id },
-          attributes: ['id', 'game', 'date'],
+          attributes: ['id', 'game', 'date', 'gotw'],
           include: [{
             model: models.Team,
             as: 'TeamA',
@@ -272,15 +276,18 @@ const controller = {
             attributes: ['id']
           }]
         }).then(matches => {
-          let gm = 0, tp = 0;
+          let gm = 0, tp = 0, gotw = false;
           matches.map(m => {
             m.fdate = moment(m.date).format('ddd DD MMM');
             if ((m.game & 2) != 0) {
               tp++;
+              m.tipping = true;
             }
             if ((m.game & 1) != 0) {
               gm++;
+              m.goalmine = true;
             }
+            if (m.gotw && (m.id != match.id)) gotw = true;
           })
           if (gm == 12) {
             req.flash('info', 'There are already 12 goalmine matches this week. You will need to delete one before adding a new match');
@@ -289,7 +296,7 @@ const controller = {
             req.flash('info', 'There are already 10 tipping matches this week. Are you sure you want to add another?');
           }
           res.render('matches/add', {
-            title: 'edit match',
+            title: 'Edit Match',
             week: wk.id,
             edit: match,
             matches: matches,
