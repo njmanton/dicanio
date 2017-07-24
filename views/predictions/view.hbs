@@ -1,6 +1,7 @@
 <section id="preds" data-uid="{{ user.id }}" data-week="{{ week }}">
   <h3>Predictions - week {{ week }}</h3>
-  <table class="table f32 grid">
+  <p>Pick or update your predictions for week {{ week }} here. You can make as many changes as you want, up until the deadline. All predictions are automatically saved on entry (the cell will turn green briefly on a successful update). Don't forget to pick a Joker for one of the matches as well, which can't be <acronym title="Game of the Week">GotW</acronym>.</p>
+  <table id="predTable" class="table f32 grid">
     <thead>
       <tr>
         <th class="grid-header">Date</th>
@@ -90,49 +91,8 @@
   </table>
   {{/if }}
 </section>
-  
 <script>
-  $(document).ready(function() {
-
-    $('.score').on('change', function() {
-      var t = $(this);
-      var uid = $('#preds').data('uid');
-      t.parent().removeClass('ajaxChange');
-      var mid = t.data('mid') || t.parent().parent().data('mid');
-      $.post({
-        url: '/predictions/update',
-        data: {
-          pid: t.data('pid'),
-          mid: mid,
-          uid: uid,
-          pred: t.val()
-        }
-      }).done(function(res) {
-        t.parent().addClass('ajaxChange');
-        console.log(res);
-      }).fail(function(res) {
-        console.log(res);
-      })
-    })
-
-    $('input:radio').on('click', function() {
-      var t = $(this);
-      var uid = $('#preds').data('uid');
-      var wid = $('#preds').data('week');
-      $.post({
-        url: '/predictions/joker',
-        data: {
-          uid: uid,
-          week: wid,
-          mid: t.data('mid')
-        }
-      }).done(function(res) {
-        console.log(res);
-      }).fail(function(res) {
-        console.log(res);
-      })
-    })
-
+  $(window).on('beforeunload', function() {
+    if (!$('input:radio:checked').length && $('input:radio').length) return true;
   })
 </script>
-
