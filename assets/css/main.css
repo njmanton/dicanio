@@ -31,6 +31,9 @@ footer {
     display: block;
     margin: 0 auto; }
 
+.alert {
+  margin-bottom: 0; }
+
 .panel {
   background-color: #333333;
   color: #ccc;
