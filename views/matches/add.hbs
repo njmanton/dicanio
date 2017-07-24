@@ -28,7 +28,7 @@
     </label>
 
     <label for="addMatchGotw">GotW
-      <input type="checkbox" name="gotw" id="addMatchGotw" />
+      <input type="checkbox" name="gotw" id="addMatchGotw" {{#if gotw }}disabled="disabled"{{/if }} />
     </label>
 
     <fieldset>
@@ -57,6 +57,9 @@
   <table class="table">
     <thead>
       <tr>
+        {{#if user.admin }}
+        <th>Admin</th>
+        {{/if }}
         <th>Date</th>
         <th>Fixture</th>
         <th>League</th>
@@ -66,16 +69,25 @@
     <tbody>
       {{#each matches }}
       <tr>
+        <td>
+          {{#if ../user.admin }}
+          <a title="manage" href="/matches/edit/{{ id }}" class="btn btn-sm btn-info">🛠</a>
+          {{#unless bets }}
+            {{#unless predictions }}
+              <button data-mid="{{ id }}" class="btn btn-sm btn-danger del">&times;</button> 
+            {{/unless }}
+          {{/unless }}
+          {{/if }}
+        </td>
         <td>{{ fdate }}</td>
         <td><a href="/matches/{{ id }}">{{ TeamA.name }} v {{ TeamB.name }}</a></td>
         <td><a href="/leagues/{{ league.id }}">{{ league.name }}</a></td>
         <td>
-          {{#unless bets }}
-            {{#unless predictions }}
-              <button data-mid="{{ id }}" class="btn btn-info del">&times;</button> 
-            {{/unless }}
-          {{/unless }}
-          </td>
+          {{#if goalmine }}<span title="goalmine" class="btn btn-sm btn-primary">G</span>{{/if }}
+          {{#if tipping }}<span title="tipping" class="btn btn-sm btn-success">T</span>{{/if }}
+          {{#if killer }}<span title="killer" class="btn btn-sm btn-info">K</span>{{/if }}
+          {{#if gotw }}<span title="gotw" class="btn btn-sm btn-warning">GotW</span>{{/if }}
+        </td>
       </tr>
       {{/each }}
     </tbody>
