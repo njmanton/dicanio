@@ -41,12 +41,17 @@ const controller = {
   }],
 
   get_edit_id: [utils.isAdmin, function(req, res, id) {
-    models.Post.findById(id, {
+    models.Post.findById(id).then(post => {
+      if (!post) {
+        req.flash('error', 'Sorry, that post could not be found');
+        res.redirect('/posts/add');
+      } else {
+        res.render('posts/edit', {
+          title: 'Edit Post',
+          data: post
+        })
+      }
 
-    }).then(post => {
-      res.render('posts/edit', {
-
-      })
     })
   }],
 
@@ -60,7 +65,7 @@ const controller = {
     let upd = {
       body: req.body.body,
       sticky: req.body.sticky,
-      author_id: req.body.author
+      author_id: usr.id || 0
     };
     models.Post.update(upd, {
       where: { id: req.body.id }
@@ -89,7 +94,7 @@ const controller = {
     }
 
     models.Post.create(data).then(p => {
-      req.flash('success', `Post '${ p.title }' successfully added.`);
+      req.flash('success', `Post '${ p.title }' successfully added by ${ usr } `);
       res.redirect('/posts');
     }).catch(e => {
       logger.error(e)

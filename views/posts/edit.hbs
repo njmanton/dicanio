@@ -1,0 +1,49 @@
+<section>
+  <p>Edit post here. You can use <a href="https://en.wikipedia.org/wiki/Markdown">markdown</a> to format text. Examples: </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type:</th>
+        <th>To get:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th><kbd>_italics_</kbd></th>
+        <td><samp><em>italics</em></samp></td>
+      </tr>
+      <tr>
+        <th><kbd>**bold**</kbd></th>
+        <td><samp><strong>bold</strong></samp></td>
+      </tr>
+      <tr>
+        <th><kbd>---</kbd></th>
+        <td><hr /></td>
+      </tr>
+      <tr>
+        <th><kbd>[link](http://google.com)</kbd></th>
+        <td><samp><a href="https://google.com/">link</a></samp></td>
+      </tr>
+      <tr>
+        <th><kbd>`code`</kbd></th>
+        <td><samp><pre style="display: inline;">code</pre></samp></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form action="/posts/add" method="post">
+    
+    <label for="title">Title
+      <input placeholder="Post title" type="text" id="postAddTitle" name="title" value="{{ data.title }}" />
+    </label>
+    <label for="PostBody">Text
+      <textarea placeholder="Your message here. Use _markdown_ codes for formatting." name="body" id="postAddBody" cols="30" rows="10">{{ data.body }}</textarea>
+    </label>
+    <label for="PostSticky">Sticky
+      <input type="checkbox" name="sticky" id="postAddSticky" value="1" {{#if data.sticky }}checked="checked"{{/if}} />
+    </label>
+    <input type="submit" class="btn btn-info" />
+  </form>
+  <button id="getPreview" class="btn btn-info">Preview</button>
+  <span id="postAddPreview" cols="30" rows="10"></span>
+</section>
