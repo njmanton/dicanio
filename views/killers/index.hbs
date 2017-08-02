@@ -1,0 +1,31 @@
+<section>
+  
+  <h3>{{ title }}</h3>
+
+  <p>This is a list of all Killer games</p>
+
+  {{#if games }}
+  <table>
+      <thead>
+        <tr>
+          <th>Game</th>
+          <th>Organiser</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each games }}
+        <tr>
+          <td><a href="/killers/play/{{ id }}">{{ description }}</a></td>
+          <td><a href="/users/{{ user.id }}">{{ user.username }}</a></td>
+          <td>{{#if complete }}Complete{{ else }}On-going{{/if }}</td>
+        </tr>
+        {{/each }}
+      </tbody>
+    </table>
+    <p><a href="/killers/add">Add</a> a new game</p>
+  {{ else }}
+  <p>No games yet. Maybe <a href="/killers/add">add</a> one?</p>
+  {{/if }}
+
+</section>

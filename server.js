@@ -26,7 +26,22 @@ const router          = express.Router();
 // handlebars as templating engine
 var hbs = bars.create({
   defaultLayout: 'layout',
-  extname: '.hbs'
+  extname: '.hbs',
+  helpers: {
+    killerLives: (lives, lost) => {
+      if ((lives - lost) <= 0) {
+        return '<span>&#9760;</span>';
+      } else {
+        let heart = '<span>♥</span>';
+        let lostheart = '<span class="lost">♥</span>'
+        if (lost) {
+          return heart.repeat(lives - 1) + lostheart;
+        } else {
+          return heart.repeat(lives);
+        }
+      }
+    }
+  }
 });
 
 app.engine('.hbs', hbs.engine);

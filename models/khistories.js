@@ -1,7 +1,7 @@
 // jshint node: true, esversion: 6
 'use strict';
 
-const kentries = (sequelize, DataTypes) => {
+const khistories = (sequelize, DataTypes) => {
 
   return sequelize.define('kentries', {
     id: {
@@ -14,36 +14,19 @@ const kentries = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    round_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false     
-    },
-    week_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false         
-    },
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false  
     },
-    match_id: {
+    team_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: null        
     },
-    pred: {
-      type: DataTypes.ENUM,
-      values: ['1', '2', 'X']
-    },
-    lives: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    
   }, {
-    tableName: 'kentries',
+    tableName: 'khistories',
     freezeTableName: true
   })
 };
 
-module.exports = kentries;
+module.exports = khistories;

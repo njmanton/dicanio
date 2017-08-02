@@ -11,20 +11,6 @@ const points = {
   joker_penalty: 0
 };
 
-const sgn = a => {
-  
-  if (a < 0) {
-    return -1;
-  } else if (a > 0) {
-    return 1;
-  } else if (a === 0) {
-    return 0;
-  } else {
-    return NaN;
-  }
-
-};
-
 const validScore = score => {
   try {
     let goals = score.split('-');
@@ -96,7 +82,7 @@ const utils = {
 
   validScore: score => {
     return validScore(score);
-  },  
+  },
 
   calc: (pred, result, joker) => {
   
@@ -112,7 +98,7 @@ const utils = {
       score = points.win * (joker + 1);
     } else if ((pg[0] - rg[0]) == (pg[1] - rg[1])) {
       score = points.correct_difference * (joker + 1);
-    } else if (sgn(pg[0] - pg[1]) == sgn(rg[0] - rg[1])) {
+    } else if (Math.sign(pg[0] - pg[1]) == Math.sign(rg[0] - rg[1])) {
       score = points.correct_result * (joker + 1);
     } else {
       score = (joker * points.joker_penalty);
