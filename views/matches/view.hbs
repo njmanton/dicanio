@@ -21,13 +21,26 @@
   {{#if data.bets }}
   <section>
     <h3>Bets</h3>
-    {{#each data.bets }}
-    <p>
-      <span>{{ user.username }}</span>
-      <span>{{ amount }}</span>
-      <span>{{ prediction }}</span>
-    </p>
-    {{/each }}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Player</th>
+          <th>Amount</th>
+          <th>Prediction</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each data.bets }}
+        <tr>
+          <td>{{ user.username }}</td>
+          <td>{{ amount }}</td>
+          <td>{{ prediction }}</td>
+        </tr>    
+        {{/each }}
+      </tbody>
+    </table>
+
+
   </section>
   {{/if }}
 
