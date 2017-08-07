@@ -1,11 +1,11 @@
-<section>
+<section class="col-sm-12">
   
   <h3>Oops, so you've forgotten your password..?</h3>
   <p>Please fill in your username and email address you used to register, and you'll be sent a reset code by email.</p>
     <form action="/users/forgot" method="post" id="forgotPassword">
-      <input type="text" required autocomplete="off" id="forgotuid" placeholder="username" name="username" /><span id="erroruid" class=""></span><br />
-      <input type="email" required autocomplete="off" id="forgotemail" placeholder="bob@example.com" name="email" /><br />
-      <input type="submit" class="btn btn-primary" id="forgotsubmit" value="Find Me" />
+      <input type="text" class="form-control" required autocomplete="off" id="forgotuid" placeholder="username" name="username" /><span id="erroruid" class=""></span>
+      <input type="email" class="form-control" required autocomplete="off" id="forgotemail" placeholder="bob@example.com" name="email" />
+      <input type="submit" class="form-control btn btn-primary" id="forgotsubmit" value="Find Me" />
     </form>  
   
 </section>

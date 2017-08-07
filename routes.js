@@ -18,16 +18,18 @@ const routes = app => {
     let threeMonthsAgo = moment().subtract(3, 'months').format('YYYY-MM-DD');
     models.Post.findAll({
       where: { updatedAt: { $gte: threeMonthsAgo }, },
-      attributes: ['title', 'body', 'author_id', 'createdAt', 'updatedAt'],
+      attributes: ['id', 'title', 'body', 'author_id', 'createdAt', 'updatedAt'],
       include: {
         model: models.User,
         attributes: ['username']
       },
       order: [['sticky', 'desc'], ['createdAt', 'desc']]
     }).then(posts => {
-      posts.map(post => {
-        post.body = marked(post.body)
-      })
+      posts.map(post => { 
+        post.body = marked(post.body); 
+        post.date = moment(post.createdAt).format('YYYY-MM-DD');
+        post.udate = post.updatedAt ? moment(post.updatedAt).format('ddd, DD MMM YY') : null;
+      });
       res.render('main', {
         title: 'Welcome',
         posts: posts

@@ -18,7 +18,11 @@ const controller = {
       attributes: ['id', 'title', 'body', 'sticky', 'createdAt', 'updatedAt'],
       order: [['sticky', 'DESC'], ['updatedAt', 'DESC']]
     }).then(posts => {
-      posts.map(post => { post.body = marked(post.body) });
+      posts.map(post => { 
+        post.body = marked(post.body); 
+        post.date = moment(post.createdAt).format('YYYY-MM-DD');
+        post.udate = post.updatedAt ? moment(post.updatedAt).format('ddd, DD MMM YY') : null;
+      });
       res.render('posts/index', {
         title: 'Posts',
         data: posts
@@ -104,7 +108,7 @@ const controller = {
   }],
 
   delete_id: [utils.isAdmin, function(req, res, id) {
-    let usr = req.user ? res.user.username : '(unknown)';
+    let usr = req.user ? req.user.username : '(unknown)';
     models.Post.destroy({
       where: { id: id }
     }).then(post => {

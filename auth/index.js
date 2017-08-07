@@ -53,8 +53,8 @@ module.exports = app => {
   ));
 
   passport.use(new FacebookStrategy({
-    clientID          : process.env.FB_APP_ID,
-    clientSecret      : process.env.FB_SECRET,
+    clientID          : process.env.FB_APP_ID || null,
+    clientSecret      : process.env.FB_SECRET || null,
     callbackURL       : config.callbacks.FB,
     passReqToCallback : true
   },
@@ -102,8 +102,8 @@ module.exports = app => {
   ));
 
   passport.use(new GoogleStrategy({
-    clientID          : process.env.G_APP_ID,
-    clientSecret      : process.env.G_SECRET,
+    clientID          : process.env.G_APP_ID || null,
+    clientSecret      : process.env.G_SECRET || null,
     callbackURL       : config.callbacks.GG,
     passReqToCallback : true
   },

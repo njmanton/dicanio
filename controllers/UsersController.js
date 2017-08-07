@@ -39,7 +39,9 @@ const controller = {
 
   get_forgot: [utils.isAnon, function(req, res) {
     // requires anon user
-    res.render('players/forgot');
+    res.render('players/forgot', {
+      title: 'Forgotten Password'
+    });
   }],
 
   post_forgot: function(req, res) {

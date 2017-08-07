@@ -339,16 +339,14 @@ $(document).ready(function() {
     checkResetForm();     
   })
 
-  $('#getPreview').on('click', function() {
-    console.log($('#postAddBody').val());
+  $('#postPreview').on('click', function() {
     $.post({
       url: '/posts/preview',
       data: {
         body: $('#postAddBody').val()
       }
     }).done(function(res) {
-      console.log(res);
-      $('#postAddPreview').html(res);
+      $('#postPreviewPane').html(res);
     })
   })
 
@@ -390,6 +388,24 @@ $(document).ready(function() {
     }).fail(function(res) {
       console.log(res);
     })
+  })
+
+  $('.postfooter span > span').on('click', function() {
+    var icon = $(this);
+    var post = icon.parent().parent().parent().parent();
+    if (icon.attr('title') == 'edit') {
+      console.log(post.data('postid'));
+    } else if (icon.attr('title') == 'delete') {
+      if (window.confirm('Please confirm you wish to delete that post')) {
+        $.ajax({
+          url: '/posts/' + post.data('postid'),
+          method: 'delete',
+        }).done(function (res) {
+          console.log(res);
+          post.fadeOut(1000);
+        })        
+      }
+    }
   })
 
 })

@@ -55,7 +55,6 @@ app.use((req, res, next) => {
   res.locals.dev = process.env.NODE_ENV || 'dev';
   next();
 });
-
 // authentication using passport.js
 require('./auth')(app);
 

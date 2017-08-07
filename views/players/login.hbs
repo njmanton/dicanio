@@ -1,23 +1,26 @@
-<section>
-  <h2>Login</h2>
-  <div class="">
+<section class="row">
+  <div class="col-sm-12">
+    <h3>Login</h3>
     <form action="/login" method="post">
       <fieldset class="login form-group">
-        <input type="text" placeholder="username" name="username"/><br />
-        <input type="password" placeholder="password" name="password"/><br />
-        <input type="submit" class="btn btn-sm btn-primary" value="Log In"/>
+        <input type="text" class="form-control" placeholder="username" name="username"/>
+        <input type="password" class="form-control" placeholder="password" name="password"/>
+        <input type="submit" class="form-control btn btn-sm btn-primary" value="Log In"/>
       </fieldset>
     </form>
   </div>
-  <div class="">
-    <a class="btn btn-social btn-facebook" href="/auth/facebook">
-      <span class="fa fa-facebook"></span>Login with Facebook
-    </a><br />
-    <a class="btn btn-social btn-google" href="/auth/google">
-      <span class="fa fa-google"></span>Login with Google
-    </a>
-    <div>
-      <small><a href="users/forgot">Forgot</a> your password?</small>
-    </div> 
+  <div class="col-sm-12">
+    <div style="margin: 0.75em auto; max-width: 60%;">
+      <a class="btn btn-social btn-facebook" href="/auth/facebook">
+        <span class="fa fa-facebook"></span>Login with Facebook
+      </a> 
+      <a class="btn btn-social btn-google" href="/auth/google">
+        <span class="fa fa-google"></span>Login with Google
+      </a>
+      <span>
+        <small><a href="users/forgot">Forgot</a> your password?</small>
+      </span>       
+    </div>
+
   </div>
 </section>

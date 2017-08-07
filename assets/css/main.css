@@ -6,15 +6,22 @@
 @import url(bootstrap-social.css);
 @import url(https://cdn.datatables.net/v/dt/dt-1.10.15/fc-3.2.2/datatables.min.css);
 body {
-  background-color: #333; }
+  background-color: #f4f4ff; }
 
 section {
-  background-color: #e8e8ee; }
+  background-color: #edf3ff; }
 
 footer {
   background-color: #333333;
   color: #ccc;
   min-height: 2em; }
+
+h2, h3 {
+  padding: 1em 0;
+  text-align: center; }
+
+h4 {
+  text-align: center; }
 
 .btn-odds {
   width: 4.3rem; }
@@ -107,7 +114,7 @@ td.err {
 .grid td, .grid th {
   height: 35px;
   min-width: 35px;
-  font-size: 12px;
+  font-size: 0.9rem;
   border: 1px solid #222 !important;
   padding: 0;
   line-height: 0;
@@ -140,3 +147,54 @@ td.err {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 230px !important; }
+
+.form-group {
+  font-size: 1.1em;
+  margin: 0 auto;
+  width: 50em; }
+
+/* Posts */
+.post {
+  background-color: #f8f8ff;
+  border: 1px solid #555;
+  box-shadow: 2px;
+  width: 60%;
+  color: #333338;
+  margin: 1em auto; }
+  .post h4 {
+    font-size: 1.2em; }
+  .post h2 {
+    font-size: 1.4em; }
+  .post .postbody {
+    padding-left: 0.5em; }
+  .post .postheader {
+    padding: 0.3em;
+    border-bottom: 1px solid #555; }
+  .post .postfooter {
+    padding: 0.5em;
+    background-color: #555;
+    color: #eee;
+    font-size: 0.85em; }
+    .post .postfooter p {
+      margin: 0; }
+    .post .postfooter span > span:hover {
+      cursor: pointer; }
+
+textarea, #postPreviewPane {
+  width: 100%;
+  min-height: 12em;
+  background-color: #f3f3f3;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem; }
+
+fieldset.login {
+  font-size: 1.7rem;
+  margin: 0 auto; }
+  fieldset.login .form-control {
+    padding: 0.75rem;
+    margin: 0 auto;
+    margin: 0.25rem;
+    max-width: 50%;
+    width: 40em; }

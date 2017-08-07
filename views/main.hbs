@@ -1,8 +1,43 @@
-<section>
-  <div class="panel col-sm-12" style="padding: 0.5rem 16.67%;">
+<section class="col-sm-12">
+  <h2>Goalmine 2017/18 Season</h2>
+  <div>
+    <h4>Latest news</h4>
     {{#each posts }}
-    <p>{{ user.username }}</p>
-    <p>{{{ body }}}</p>
+    <div data-postid="{{ id }}" class="post">
+      <div class="postheader"><h4>{{ title }}</h4></div>
+      <div class="postbody">
+        <p>{{{ body }}}</p>        
+      </div>
+      <div class="postfooter">
+        <p>
+          <span>Posted by <a href="/users/{{ user.id }}">{{ user.username }}</a> on {{ date }}{{#if udate }}, updated on {{ udate }}{{/if }}</span>
+          <span style="font-size: 1em; float: right;">
+            {{#if ../user.admin }}<span title="edit" data-pid="{{ id }}" class="fa fa-pencil"></span> <span title="delete" data-pid="{{ id }}" class="fa fa-trash"></span>{{/if }}
+          </span>
+        </p>
+      </div>
+    </div>
+
     {{/each }}
+    {{#if user.admin }}<p style="text-align: center;"><a href="/posts/add">Add</a> new post.</p>{{/if }} 
   </div>
 </section>
+<script>
+  $('.postfooter span > span').on('click', function() {
+    var icon = $(this);
+    var post = icon.parent().parent().parent().parent();
+    if (icon.attr('title') == 'edit') {
+      console.log(post.data('postid'));
+    } else if (icon.attr('title') == 'delete') {
+      if (window.confirm('Please confirm you wish to delete that post')) {
+        $.ajax({
+          url: '/posts/' + post.data('postid'),
+          method: 'delete',
+        }).done(function (res) {
+          console.log(res);
+          post.fadeOut(1000);
+        })        
+      }
+    }
+  })
+</script>
