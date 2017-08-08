@@ -55,7 +55,7 @@ const controller = {
       }],
     }).then( matches => {
       matches.map(m => {
-        m.fdate = moment(m.date).format('ddd MM YY');
+        m.fdate = moment(m.date).format('YYYY-MM-DD');
       });
       res.render('matches/index', {
         title: 'All Matches',

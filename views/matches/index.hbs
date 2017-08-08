@@ -7,7 +7,8 @@
         <th>League</th>
         <th>Home</th>
         <th>Away</th>
-        <th>Result</th>      
+        <th>Result</th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
         <td><a href="/teams/{{ TeamA.id }}">{{ TeamA.name }}</a></td>
         <td><a href="/teams/{{ TeamB.id }}">{{ TeamB.name }}</a></td>
         <td>{{ result }}</td>
+        <td><a href="/matches/{{ id }}"><span class="fa fa-search"></span></a></td>
       </tr>
       {{/each }}
     </tbody>

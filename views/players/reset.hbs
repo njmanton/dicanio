@@ -1,12 +1,13 @@
 <section class="col-sm-12">
   <h3>Reset your password</h3>
-    <p>You can now reset your password using the form below. Please enter the email associated with your account, and choose a new password (minimum 6 characters).</p>
+
     <form action="" method="post" id="resetPassword">
-      <fieldset class="form-group">
-        <input type="email" placeholder="email" value="" required autocomplete="off" id="resetemail" name="email" /><br />
-        <input type="password" placeholder="new password (min 8 chars)" value="" pattern=".{8,}" required autocomplete="off" id="resetpwd" name="pwd" /><span id="password-val" class="intrainput"></span> <br />
-        <input type="password" placeholder="repeat password" required pattern=".{8,}" autocomplete="off" id="rpt" name="rpt" /><span id="rpt-val" class="intrainput"></span><br />
-        <input type="submit" id="reset-submit" disabled="disabled" class="btn btn-primary" value="Update" />      
+      <fieldset class="login">
+        <p>You can now reset your password using the form below. Please enter the email associated with your account, and choose a new password (minimum 6 characters).</p>      
+        <input type="email" class="form-control" placeholder="email" value="" required autocomplete="off" id="resetemail" name="email" />
+        <input type="password" class="form-control" placeholder="new password (min 8 chars)" value="" pattern=".{8,}" required autocomplete="off" id="resetpwd" name="pwd" /><span id="password-val" class="intrainput"></span>
+        <input type="password" class="form-control" placeholder="repeat password" required pattern=".{8,}" autocomplete="off" id="rpt" name="rpt" /><span id="rpt-val" class="intrainput"></span>
+        <input type="submit" id="reset-submit" disabled="disabled" class="form-control btn btn-primary" value="Update" />      
       </fieldset>
     </form>
 </section>

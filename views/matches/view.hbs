@@ -5,45 +5,58 @@
   <div>
     {{ data.league.name }}, {{ data.fdate }}
   </div>
-  {{#if data.predictions }}
-  <section>
-    <h3>Predictions</h3>
-    {{#each data.predictions }}
-    <p>
-      <span>{{ user.username }}</span> 
-      <span>{{ pred }}</span>
-      <span>{{ points }}</span>
-    </p>
-    {{/each }}
-  </section>
-  {{/if }}
 
-  {{#if data.bets }}
-  <section>
-    <h3>Bets</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Player</th>
-          <th>Amount</th>
-          <th>Prediction</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each data.bets }}
-        <tr>
-          <td>{{ user.username }}</td>
-          <td>{{ amount }}</td>
-          <td>{{ prediction }}</td>
-        </tr>    
-        {{/each }}
-      </tbody>
-    </table>
+  <ul class="nav nav-tabs" role="tablist">
+    {{#if data.predictions }}
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#predictions" role="tab">Predictions</a>
+    </li>
+    {{/if }}
+    {{#if data.bets }}
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#bets" role="tab">Bets</a>
+    </li>
+    {{/if }}
+  </ul>
 
-
-  </section>
-  {{/if }}
-
+  <div class="tab-content">
+    {{#if data.predictions }}
+    <div class="tab-pane active" id="predictions" role="tabpanel">
+      <h3>Predictions</h3>
+      {{#each data.predictions }}
+      <p>
+        <span>{{ user.username }}</span> 
+        <span>{{ pred }}</span>
+        <span>{{ points }}</span>
+      </p>
+      {{/each }}
+    </div>
+    {{/if }}
+    {{#if data.bets }}
+    <div class="tab-pane" id="bets" role="tabpanel">
+      <h3>Bets</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Amount</th>
+            <th>Prediction</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each data.bets }}
+          <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ amount }}</td>
+            <td>{{ prediction }}</td>
+          </tr>    
+          {{/each }}
+        </tbody>
+      </table>
+    </div>
+    {{/if }}
+  </div>
+  
   {{#if editable }}
     <a class="btn btn-info" href="/matches/edit/{{ data.id }}">Edit</a>
     <button data-mid="{{ data.id }}" data-week="{{ data.week_id }}" id="deleteMatch" class="btn btn-danger">Delete</button>
