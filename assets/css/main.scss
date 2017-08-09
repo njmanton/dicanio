@@ -24,6 +24,10 @@ footer {
   background-color: rgb(51, 51, 51);
   color: #ccc;
   min-height: 2em;
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 }
 
 h2, h3 {
@@ -140,6 +144,7 @@ td.err {
   td, th {
     height: 35px;
     min-width: 35px;
+    max-width: 60px;
     font-size: 0.9rem;
     border: 1px solid #222 !important;
     padding: 0;
@@ -177,12 +182,23 @@ td.err {
   max-width: 230px !important;
 }
 
-.form-group {
-  margin: 0 auto;
-  width: 50em;
-  max-width: 50%;
-  .form-control {
-    font-size: 1.5em;
+.bet-grid {
+  margin-bottom: 2rem;
+}
+
+.bet-grid td, .bet-grid th {
+  vertical-align: middle;
+  text-align: center;
+  padding: 3px;
+}
+
+.bet-cell {
+  border-radius: 7px;
+  font-size: 0.9rem;
+  background-color: #822;
+  color: #fff;
+  &.win {
+    background-color: #161;
   }
 }
 
@@ -231,10 +247,22 @@ textarea, #postPreviewPane {
   font-size: 1rem;
 }
 
-fieldset.login {
-  margin: 0 auto 2rem;
-  width: 40em;
+/* forms */
+.form-group {
+  margin: 0 auto 2rem auto;
+  width: 50em;
   max-width: 50%;
+  .form-control {
+    font-size: 1.5em;
+  }
+}
+
+fieldset {
+  margin: 0 auto 2rem;
+  .login {
+    width: 40em;
+    max-width: 50%;
+  }
   .form-control {
     padding: 0.75rem 1.5rem;
     margin: 0.25rem;

@@ -1,79 +1,94 @@
-<section>
+<section class="col-sm-12">
   
   <h3>Admin Control Panel</h3>
 
-  <p>Hi, {{ user.username }}</p>
+  <ul class="nav nav-pills" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#addResults" role="tab">Add Results</a>
+    </li>
+    <li class="nav-item">
+      <a href="#addPost" data-toggle="tab" role="tab" class="nav-link">Add Post</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#manageWeek" role="tab">Manage Week</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#addTeam" role="tab">Add Team/League</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#manageUser" role="tab">Manage User</a>
+    </li>
+  </ul>
 
-
-  <section id="outstanding">
-    <h4>Outstanding matches</h4>
-    <p>These games have taken place, and are awaiting results. Scores are saved automatically.</p>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Week</th>
-          <th>Date</th>
-          <th>League</th>
-          <th>Fixture</th>
-          <th>Result</th>
-        </tr>
-      </thead>
-      <tbody>
-    {{#each matches }}     
-        <tr>
-          <td>{{ week_id }}</td>
-          <td>{{ fdate }}</td>
-          <td>{{ league.name }}</td>
-          <td>{{ TeamA.name }} v {{ TeamB.name }}</td>
-          <td><input type="text" class="score" name="" pattern="\d{1,2}-\d{1,2}" placeholder="X-X" maxlength="5" data-mid="{{ id }}" /></td>
-        </tr>
-    {{/each }}        
-      </tbody>
-    </table>
-
-  </section>
-  <section>
-    <h4>Manage Week</h4>
-    <p>Some stuff here</p>
-  </section>
-  <section>
-
-    <h4>Add team/league</h4>
-    
-    <form action="/teams/add" method="post">
-      <label for="team">Add New Team: 
-        <input type="text" name="team" id="proposedTeam" />
-        <span role="alert" class="intrainput" id="team-dup"></span><br />
-      </label>
-      <input type="submit" id="addTeam" />
-    </form>
-
-    <form action="/leagues/add" method="post">
-      <label for="team">Add New League: 
-        <input type="text" name="league" id="proposedLeague" />
-        <span role="alert" class="intrainput" id="league-dup"></span><br />
-      </label>
-      <input type="submit" id="addLeague" />
-    </form> 
-
-
-  </section>
-  <section>
-    <h4>Manage user</h4>
-    <p>Select a user to manage their details.</p>
-    <form action="/admin/manage/users" method="post">
-      <select name="uid" id="ledgerUser">
-        {{#each users }}
-        <option value="{{ id }}">{{ username }}</option>
-        {{/each }}
-      </select>
-      <input type="submit" value="Manage" id="manageUser">    
-    </form>
-
-  </section>
-  <section>
-    <h4>Add post</h4>
-    <p>You can <a href="/posts/add">add</a> posts to the front page of the site.</p>
-  </section>
+  <div class="tab-content">
+    <div class="tab-pane active" id="addResults" role="tabpanel">
+      <section id="outstanding">
+        <p>These games have taken place, and are awaiting results. Scores are saved automatically.</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Date</th>
+              <th>League</th>
+              <th>Fixture</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+        {{#each matches }}     
+            <tr>
+              <td>{{ week_id }}</td>
+              <td>{{ fdate }}</td>
+              <td>{{ league.name }}</td>
+              <td>{{ TeamA.name }} v {{ TeamB.name }}</td>
+              <td><input type="text" class="score" name="" pattern="\d{1,2}-\d{1,2}" placeholder="X-X" maxlength="5" data-mid="{{ id }}" /></td>
+            </tr>
+        {{/each }}        
+          </tbody>
+        </table>
+      </section>      
+    </div>
+    <div class="tab-pane" id="addPost" role="tabpanel">
+      <section>
+        <p>You can <a href="/posts/add">add</a> posts to the front page of the site.</p>
+      </section>   
+    </div>
+    <div class="tab-pane" id="manageWeek" role="tabpanel">
+      <section>
+        <p>Some stuff here</p>
+      </section>         
+    </div>
+    <div class="tab-pane" id="addTeam" role="tabpanel">
+      <section>
+        <form action="/teams/add" method="post">
+          <label for="team">Add New Team: 
+            <input type="text" name="team" id="proposedTeam" />
+            <span role="alert" class="intrainput" id="team-dup"></span><br />
+          </label>
+          <input type="submit" id="addTeam" />
+        </form>
+        <form action="/leagues/add" method="post">
+          <label for="team">Add New League: 
+            <input type="text" name="league" id="proposedLeague" />
+            <span role="alert" class="intrainput" id="league-dup"></span><br />
+          </label>
+          <input type="submit" id="addLeague" />
+        </form> 
+      </section>      
+    </div>
+    <div class="tab-pane" id="manageUser" role="tabpanel">
+      <section>
+        <p>Select a user to manage their details.</p>
+        <form action="/admin/manage/users" method="post">
+          <select name="uid" id="ledgerUser">
+            {{#each users }}
+            <option value="{{ id }}">{{ username }}</option>
+            {{/each }}
+          </select>
+          <input type="submit" value="Manage" id="manageUser">    
+        </form>
+      </section>      
+    </div>
+  </div>
 
 </section>

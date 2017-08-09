@@ -27,7 +27,7 @@ const routes = app => {
     }).then(posts => {
       posts.map(post => { 
         post.body = marked(post.body); 
-        post.date = moment(post.createdAt).format('YYYY-MM-DD');
+        post.date = moment(post.createdAt).format('ddd, DD MMM YY');
         post.udate = post.updatedAt ? moment(post.updatedAt).format('ddd, DD MMM YY') : null;
       });
       res.render('main', {

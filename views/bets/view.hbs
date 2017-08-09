@@ -1,126 +1,80 @@
 <section class="col-sm-12">
-  <div class="" style="width: 100%; margin-bottom: 2rem;">
-    <h3>Bets - week {{ week }}</h3>
-    <div style="display: block; float: none; width: 100%;">
-      <table id="grid" style="width: 100%;" class="bet-grid table-responsive">
-        <thead>
-          <th class="betdate grid-header">Date</th>
-          <th class="grid-header">Match</th>
-          <th class="grid-header">Winner</th>
-          <th class="grid-header">Return</th>
-          {{#each players }}
-          <th style="min-width: 130px;">
-            <div class="players">
-              <a href="/users/{{ id }}">{{ username }}</a>
-            </div>
-          </th>
-          {{/each }}
-        </thead>
-        <tbody>
-          {{#each table }}
-          <tr>
-            {{#with header }}
-            <td class="grid-header">{{ date }}</td>
-            <td class="grid-header">{{ fixture }}</td>
-            <td class="grid-header">{{ result }}</td>
-            <td class="grid-header">{{ return }}</td>
-            {{/with }}
-
-            {{#each bets }}
-            <td class="player">
-              {{#if this }}
-              <div class="bet-cell {{#if win }}win{{/if }}">
-                <span>{{ prediction }}</span>
-                <span class="outcome">{{ outcome }}</span>
+  <h3>Bets - week {{ week }}</h3>
+  <div style="margin: 1em auto; width: 90%;">
+    <ul class="nav nav-pills" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#bet-table" role="tab">Table</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#bet-standings" role="tab">Standings</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="bet-table">
+        <table id="grid" style="width: 100%;" class="bet-grid table-responsive table-striped">
+          <thead>
+            <th class="betdate grid-header">Date</th>
+            <th class="grid-header">Match</th>
+            <th class="grid-header">Winner</th>
+            <th class="grid-header">Return</th>
+            {{#each players }}
+            <th style="min-width: 160px;">
+              <div class="players">
+                <a href="/users/{{ id }}">{{ username }}</a>
               </div>
-              {{ else }}
-              &nbsp;
-              {{/if }}
-            </td>
+            </th>
             {{/each }}
-          </tr>
-          {{/each }}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {{#each table }}
+            <tr>
+              {{#with header }}
+              <td class="grid-header">{{ date }}</td>
+              <td class="grid-header">{{ fixture }}</td>
+              <td class="grid-header">{{ result }}</td>
+              <td class="grid-header">{{ return }}</td>
+              {{/with }}
+
+              {{#each bets }}
+              <td class="player">
+                {{#if this }}
+                <div class="bet-cell {{#if win }}win{{/if }}">
+                  <span>{{#if ../../expired }}{{ prediction }}{{ else }}???{{/if }}</span>
+                  <span class="outcome">{{#if ../../expired }}{{ outcome }}{{/if }}</span>
+                </div>
+                {{ else }}
+                &nbsp;
+                {{/if }}
+              </td>
+              {{/each }}
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>
+      {{# unless expired }}<a href="/bets/{{ week }}/edit" class="btn btn-primary">Edit Bets</a>{{/unless }}     
+      </div>
+      <div role="tabpanel" class="tab-pane" id="bet-standings">
+        {{#if standings }}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each standings }}
+            <tr>
+              <td>{{ rank }}</td>
+              <td>{{ username }}</td>
+              <td>{{ balance }}</td>
+            </tr>
+            {{/each }}
+          </tbody>
+        </table>
+        {{/if }}
+      </div>    
     </div>
-    {{# unless expired }}<a href="/bets/{{ week }}/edit" class="btn btn-primary">Edit Bets</a>{{/unless }}
-  </div>
-  {{#if standings }}
-  <div class="col-sm-12">
-    <h3>Standings</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Balance</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each standings }}
-        <tr>
-          <td>{{ rank }}</td>
-          <td>{{ username }}</td>
-          <td>{{ balance }}</td>
-        </tr>
-        {{/each }}
-      </tbody>
-    </table>
   </div>
 </section>
-{{/if }}
-
-
-<style>
-
-.bet-backdrop {
-}
-
-.bet-container {
-  margin: 2em auto;
-  background-color: #222;
-  max-width: 60rem;
-}
-
-.grid-header {
-  white-space: nowrap;
-  padding: 0 0.5em !important;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 230px !important;
-}
-
-.bet-grid td, .bet-grid th {
-  vertical-align: middle;
-  text-align: center;
-  padding: 3px;
-  font-size: 11px;
-}
-
-td.bet-cell {
-  min-width: 130px;
-}
-
-.bet {
-  padding: 0 0 0 10px;
-  border-radius: 7px;
-  line-height: 22px;
-  background-color: #666672;
-  color: #fff;
-  width: 120px;
-  margin: 0 auto;
-}
-
-.betamt {
-  text-shadow: #333 1px 1px 1px;
-}
-
-.outcome {
-  width: 33%;
-  border-radius: 0 7px 7px 0;
-  float: right;
-  padding: 0 0.1em;
-  margin: 0;
-  text-align: center;
-}
-</style>

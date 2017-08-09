@@ -99,7 +99,7 @@ const bets = (sequelize, DataTypes) => {
                     date: moment(match.date).format('ddd DD MMM'),
                     fixture: [(match.TeamA.sname || match.TeamA.name), (match.TeamB.sname || match.TeamB.name)].join(' v '),
                     result: winner,
-                    return: match.result ? match['odds' + result] : '-'
+                    return: match.result ? '£' + match['odds' + result].toFixed(2) : '-'
                   },
                   bets: []
                 };
@@ -119,6 +119,7 @@ const bets = (sequelize, DataTypes) => {
                   scan.prediction = 'Draw';
                 }
                 scan.win = (scan.outcome > 0);
+                if (scan.outcome) scan.outcome = scan.outcome.toFixed(2);
                 row.bets.push(scan);
               }
             }

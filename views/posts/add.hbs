@@ -4,7 +4,7 @@
 
   <form action="/posts/add" method="post">
     <fieldset class="form-group">
-      <p>Add a new post to appear on main page. Posts are ordered in date order (latest first), and 'sticky' posts will always be placed at the top. You can use <a data-toggle="collapse" href="#mdExamples" aria-expanded="false" aria-controls="mdExamples">markdown</a> to format text. Examples: </p>
+      <p>Add a new post to appear on the main page. Posts are ordered in date order (latest first), and 'sticky' posts will always be placed at the top. You can use <a data-toggle="collapse" href="#mdExamples" aria-expanded="false" aria-controls="mdExamples">markdown</a> to format text. Examples: </p>
       <aside class="collapse" id="mdExamples">
         <table>
           <thead>
@@ -45,7 +45,7 @@
           </tbody>
         </table>
       </aside>
-      <input class="form-control" placeholder="Post title" type="text" id="postAddTitle" name="title" />
+      <input class="form-control" required placeholder="Post title (required)" type="text" id="postAddTitle" name="title" />
       <ul class="nav nav-pills" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" href="#write" role="tab">Write</a>
@@ -62,10 +62,11 @@
           <div id="postPreviewPane" cols="30" rows="10"></span> 
         </div>
       </div>
-      <div>
-        <label for="PostSticky">Sticky</label>
-        <input type="checkbox" class="form-inline form-check-input" name="sticky" id="postAddSticky" value="1" />  
-      </div> 
+      <div class="form-check form-check-inline">
+        <label class="form-check-label" for="PostSticky">
+        <input type="checkbox" class="form-check-input" name="sticky" id="postAddSticky" value="1" /> Sticky
+        </label>
+      </div>
       <input type="submit" class="form-control btn btn-info" />
     </fieldset>
   </form>

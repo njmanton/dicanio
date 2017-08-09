@@ -15,6 +15,9 @@ footer {
   background-color: #333333;
   color: #ccc;
   min-height: 2em; }
+  footer ul {
+    list-style-type: none;
+    padding: 0; }
 
 h2, h3 {
   padding: 1em 0;
@@ -114,6 +117,7 @@ td.err {
 .grid td, .grid th {
   height: 35px;
   min-width: 35px;
+  max-width: 60px;
   font-size: 0.9rem;
   border: 1px solid #222 !important;
   padding: 0;
@@ -148,12 +152,21 @@ td.err {
   text-overflow: ellipsis;
   max-width: 230px !important; }
 
-.form-group {
-  margin: 0 auto;
-  width: 50em;
-  max-width: 50%; }
-  .form-group .form-control {
-    font-size: 1.5em; }
+.bet-grid {
+  margin-bottom: 2rem; }
+
+.bet-grid td, .bet-grid th {
+  vertical-align: middle;
+  text-align: center;
+  padding: 3px; }
+
+.bet-cell {
+  border-radius: 7px;
+  font-size: 0.9rem;
+  background-color: #822;
+  color: #fff; }
+  .bet-cell.win {
+    background-color: #161; }
 
 /* Posts */
 .post {
@@ -191,11 +204,20 @@ textarea, #postPreviewPane {
   padding: 0.5rem 0.75rem;
   font-size: 1rem; }
 
-fieldset.login {
-  margin: 0 auto 2rem;
-  width: 40em;
+/* forms */
+.form-group {
+  margin: 0 auto 2rem auto;
+  width: 50em;
   max-width: 50%; }
-  fieldset.login .form-control {
+  .form-group .form-control {
+    font-size: 1.5em; }
+
+fieldset {
+  margin: 0 auto 2rem; }
+  fieldset .login {
+    width: 40em;
+    max-width: 50%; }
+  fieldset .form-control {
     padding: 0.75rem 1.5rem;
     margin: 0.25rem;
     font-size: 2rem; }
