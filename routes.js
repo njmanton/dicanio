@@ -21,7 +21,7 @@ const routes = app => {
       attributes: ['id', 'title', 'body', 'author_id', 'createdAt', 'updatedAt'],
       include: {
         model: models.User,
-        attributes: ['username']
+        attributes: ['id', 'username']
       },
       order: [['sticky', 'desc'], ['createdAt', 'desc']]
     }).then(posts => {
