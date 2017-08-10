@@ -62,9 +62,13 @@ const bets = (sequelize, DataTypes) => {
             model: models.Team,
             as: 'TeamB',
             attributes: ['name', 'sname']
+          }, {
+            model: models.Week,
+            attributes: ['id', 'start']
           }]
         }).then(matches => {
           if (!matches.length) { return null };
+          let expired = moment(matches[0].week.start) < moment();
           let table   = [],
               players = [];
 
@@ -75,8 +79,8 @@ const bets = (sequelize, DataTypes) => {
             })
           })
           // strip out duplicates and sort to push logged in user to top of list
-          let loggedIn = user ? user.username : null;
-          players = _.uniqBy(players, 'id').sort((a, b) => a.username == loggedIn ? -1 : 1 );
+          let loggedIn = user || null;
+          players = _.uniqBy(players, 'id').sort((a, b) => a.username == loggedIn.username ? -1 : 1 );
           // iterate (again) to build the table array for rendering
           matches.forEach(match => {
             let result = null,
@@ -119,6 +123,10 @@ const bets = (sequelize, DataTypes) => {
                   scan.prediction = 'Draw';
                 }
                 scan.win = (scan.outcome > 0);
+                if (!expired && (scan.user.id != loggedIn.id)) {
+                  scan.prediction = '???';
+                  scan.amount = '';
+                }
                 if (scan.outcome) scan.outcome = scan.outcome.toFixed(2);
                 row.bets.push(scan);
               }

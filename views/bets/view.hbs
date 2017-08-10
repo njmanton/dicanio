@@ -39,8 +39,8 @@
               <td class="player">
                 {{#if this }}
                 <div class="bet-cell {{#if win }}win{{/if }}">
-                  <span>{{#if ../../expired }}{{ prediction }}{{ else }}???{{/if }}</span>
-                  <span class="outcome">{{#if ../../expired }}{{ outcome }}{{/if }}</span>
+                  <span>{{ prediction }}</span>
+                  <span>{{#if ../../expired }}{{ outcome }}{{ else }}-{{ amount }}{{/if }}</span>
                 </div>
                 {{ else }}
                 &nbsp;
