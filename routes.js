@@ -17,7 +17,7 @@ const routes = app => {
   app.get('/', (req, res) => {
     let threeMonthsAgo = moment().subtract(3, 'months').format('YYYY-MM-DD');
     models.Post.findAll({
-      where: { updatedAt: { $gte: threeMonthsAgo }, },
+      where: { createdAt: { $gte: threeMonthsAgo }, },
       attributes: ['id', 'title', 'body', 'author_id', 'createdAt', 'updatedAt'],
       include: {
         model: models.User,
