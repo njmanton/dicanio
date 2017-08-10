@@ -37,7 +37,7 @@ module.exports = app => {
           }
         } catch(e) {
           console.log(e);
-          return done(null, false, { message: bCrypt.hashSync('pyrite', bCrypt.genSaltSync(10), null) });
+          return done(null, false, { message: 'problem entering password' });
         }
         let now = moment().format('YYYY-MM-DD HH:mm:ss');
         user.update({ resetpwd: null, lastlogin: now }); // nullify reset code, if present
