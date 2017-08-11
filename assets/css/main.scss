@@ -270,3 +270,18 @@ fieldset {
   }
 }
 
+.intrainput {
+  display: inline;
+  margin-left: -1.7em;
+  font-size: 1.7em;
+  font-weight: bold;
+  color: #f00;
+  &.success {
+    color: #060;
+  }
+}
+
+#resetPassword .form-inline > input {
+  width: 100%;
+}
+
