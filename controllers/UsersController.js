@@ -162,7 +162,7 @@ const controller = {
         }).then(row => {
           if (row) {
             req.flash('success', `${ req.body.username } has been added as a new user`);
-            logger.info(`User ${ req.body.user } (${ row.id }) was created by ${ admin }`);
+            logger.info(`User ${ req.body.username } (${ row.id }) was created by ${ admin }`);
           } else {
             req.flash('error', 'Sorry, there was an error creating this user');
           }
