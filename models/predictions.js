@@ -143,10 +143,10 @@ const predictions = (sequelize, DataTypes) => {
           table.sort((a, b) => {
             if (a.header.gotw == b.header.gotw) {
               if (a.header.sortdate == b.header.sortdate) {
-                if (a.header.fixture == b.header.fixture) {
-                  return (a.header.lid < b.header.lid) ? -1 : 1;
-                } else {
+                if (a.header.lid == b.header.lid) {
                   return (a.header.fixture < b.header.fixture) ? -1 : 1;
+                } else {
+                  return (a.header.lid < b.header.lid) ? -1 : 1;
                 }
               } else {
                 return (a.header.sortdate < b.header.sortdate) ? -1 : 1;
