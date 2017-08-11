@@ -5,6 +5,7 @@ const models  = require('../models'),
       logger  = require('winston'),
       marked  = require('marked'),
       utils   = require('../utils'),
+      emoji   = require('node-emoji'),
       moment  = require('moment');
 
 const controller = {
@@ -19,7 +20,7 @@ const controller = {
       order: [['sticky', 'DESC'], ['updatedAt', 'DESC']]
     }).then(posts => {
       posts.map(post => { 
-        post.body = marked(post.body); 
+        post.body = emoji.emojify(marked(post.body)); 
         post.date = moment(post.createdAt).format('ddd, DD MMM YY');
         post.udate = post.updatedAt ? moment(post.updatedAt).format('ddd, DD MMM YY') : null;
       });
@@ -60,7 +61,7 @@ const controller = {
   }],
 
   post_preview: [utils.isAdmin, function(req, res) {
-    res.send(marked(req.body.body));
+    res.send(emoji.emojify(marked(req.body.body)));
   }],
 
   post_edit: [utils.isAdmin, function(req, res) {

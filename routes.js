@@ -9,6 +9,7 @@ const models    = require('./models'),
       fs        = require('fs'),
       gravatar  = require('gravatar'),
       logger    = require('winston'),
+      emoji     = require('node-emoji'),
       utils     = require('./utils'),
       passport  = require('passport');
 
@@ -26,7 +27,7 @@ const routes = app => {
       order: [['sticky', 'desc'], ['createdAt', 'desc']]
     }).then(posts => {
       posts.map(post => { 
-        post.body = marked(post.body); 
+        post.body = emoji.emojify(marked(post.body)); 
         post.date = moment(post.createdAt).format('ddd, DD MMM YY');
         post.udate = post.updatedAt ? moment(post.updatedAt).format('ddd, DD MMM YY') : null;
       });

@@ -4,7 +4,7 @@
 
   <form action="/posts/add" method="post">
     <fieldset class="form-group">
-      <p>Add a new post to appear on the main page. Posts are ordered in date order (latest first), and 'sticky' posts will always be placed at the top. You can use <a data-toggle="collapse" href="#mdExamples" aria-expanded="false" aria-controls="mdExamples">markdown</a> to format text. Examples: </p>
+      <p>Add a new post to appear on the main page. Posts are ordered in date order (latest first), and 'sticky' posts will always be placed at the top. You can use <a data-toggle="collapse" href="#mdExamples" aria-expanded="false" aria-controls="mdExamples">markdown and emoji</a> to format text. Examples: </p>
       <aside class="collapse" id="mdExamples">
         <table>
           <thead>
@@ -41,6 +41,10 @@
             <tr>
               <th><kbd>[link](http://google.com)</kbd></th>
               <td><samp><a href="https://google.com/">link</a></samp></td>
+            </tr>
+            <tr>
+              <th><kbd>:soccer: :heart: :flag-br: etc.</kbd></th>
+              <td><samp>⚽️ ❤️ 🇧🇷</samp> see full <a target="_blank" href="https://raw.githubusercontent.com/omnidan/node-emoji/master/lib/emoji.json">list</a></td>
             </tr>
           </tbody>
         </table>
