@@ -233,3 +233,6 @@ fieldset {
 
 #resetPassword .form-inline > input {
   width: 100%; }
+
+#username_err.err {
+  margin-left: -4em; }

@@ -136,6 +136,48 @@ const controller = {
     models.Prediction.userPreds(id).then(preds => {
       res.send(preds);
     })
+  },
+
+  get_add: [utils.isAdmin, function(req, res) {
+    res.render('players/add', {
+      title: 'Add User'
+    })
+  }],
+
+  post_add: [utils.isAdmin, function(req, res) {
+    //res.send(`<pre>${ JSON.stringify(req.body, null, 2) }</pre>`);
+    let admin = req.user ? req.user.username : '(unknown)';
+    models.User.findOne({
+      where: { username: req.body.username }
+    }).then(user => {
+      if (user) {
+        req.flash('error', 'Sorry, that username already exists');
+        res.redirect('/users/add');
+      } else {
+        models.User.create({
+          username: req.body.username,
+          email: req.body.email,
+          password: bCrypt.hashSync(req.body.repeat, bCrypt.genSaltSync(10), null),
+          games: 7
+        }).then(row => {
+          if (row) {
+            req.flash('success', `${ req.body.username } has been added as a new user`);
+            logger.info(`User ${ req.body.user } (${ row.id }) was created by ${ admin }`);
+          } else {
+            req.flash('error', 'Sorry, there was an error creating this user');
+          }
+          res.redirect('/');
+        })
+      }
+    })
+  }],
+
+  get_dup_name: function(req, res, name) {
+    models.User.findOne({
+      where: { username: name }
+    }).then(user => {
+      res.send(!!!user); // weird triple bang to convert existence of object to false, otherwise true
+    })
   }
 
 }

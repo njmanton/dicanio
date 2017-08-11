@@ -1,0 +1,101 @@
+<section>
+  <header>
+    <h3>Add new player</h3>
+  
+  </header>
+  <form id="resetPassword" action="/users/add" method="POST">
+    <fieldset class="login form-group">
+      <legend>Player Details</legend>
+      <p>Use this form to add a new player to the competition. All fields are mandatory</p>
+      <div class="form-inline">
+        <input type="text" placeholder="username" class="form-control" name="username" id="UserUsername" maxlength="50" autocomplete="off" required /><span id="username_err" class="intrainput"></span>
+        <input required type="email" placeholder="email" class="form-control" name="email" id="UserEmail" maxlength="50" autocomplete="off" /><span class="intrainput"></span>
+        <input required type="password" pattern=".{8,}" placeholder="password (min 8 chars)" class="form-control" name="password" id="UserPassword" maxlength="50" autocomplete="off" /><span class="intrainput" id="new_err"></span>
+        <input required type="password" placeholder="repeat password" class="form-control" name="repeat" id="UserRepeat" maxlength="50" autocomplete="off" /><span class="intrainput" id="repeat_err"></span>
+        <input type="submit" id="confirmSubmit" value="Add" class="form-control btn btn-primary" disabled="disabled" />        
+      </div>
+    </fieldset>
+    
+  </form>
+
+</section>
+<script>
+  $(document).ready(function() {
+
+    var addUser = $('#UserUsername');
+    var addEmail = $('#UserEmail');
+    var addPwd = $('#UserPassword');
+    var addRpt = $('#UserRepeat');
+
+    var checkAddForm = function() {
+
+      var state = $('#username_err').hasClass('success') && $('#new_err').hasClass('success') && $('#repeat_err').hasClass('success');
+
+      if (state) {
+        $('#confirmSubmit').removeAttr('disabled');
+      } else {
+        $('#confirmSubmit').attr('disabled', 'disabled');
+      }
+    }
+
+    addUser.on('change', function() {
+      $.get({
+        url: '/users/dup/' + addUser.val()
+      }).done(function(res) {
+        console.log(res);
+        if (res) {
+          $('#username_err')
+            .removeClass('err')
+            .addClass('success')
+            .html('&#10003;')
+            .show();          
+        } else {
+          $('#username_err')
+            .removeClass('success')
+            .addClass('err')
+            .text('taken')
+            .show();              
+        }
+      })
+      checkAddForm();
+    });
+
+    addPwd.on('blur', function() {
+      var fld = $(this).val();
+      if (fld.length >= 8) {
+          $('#new_err')
+            .removeClass('err')
+            .addClass('success')
+            .html('&#10003;')
+            .show();
+      } else {
+          $('#new_err')
+            .removeClass('success')
+            .addClass('err')
+            .text('!!')
+            .show();
+      }
+      checkAddForm();
+    })
+
+    addRpt.on('keyup', function() {
+      var fld = $(this).val();
+      var pwd = addPwd.val();
+      if (fld == pwd) {
+          $('#repeat_err')
+            .removeClass('err')
+            .addClass('success')
+            .html('&#10003;')
+            .show();
+      } else {
+          $('#repeat_err')
+            .removeClass('success')
+            .addClass('err')
+            .html('&ne;')
+            .show();
+      } 
+      checkAddForm();     
+  })
+
+  });
+</script>
