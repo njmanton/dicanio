@@ -103,7 +103,7 @@ const predictions = (sequelize, DataTypes) => {
                   },
                   preds: []
                 };
-                if (utils.validScore(match.result)) {
+                if (match.result && utils.validScore(match.result)) {
                   totals += match.result.split('-').reduce((a, b) => { return +a + +b; }, 0);
                 }
 
@@ -162,7 +162,7 @@ const predictions = (sequelize, DataTypes) => {
             totals: totals
           };
 
-        })
+        }).catch(e => { console.log(e) });
       },
 
       getPlayers: week => {
