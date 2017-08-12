@@ -130,13 +130,13 @@ const standings = (sequelize, DataTypes) => {
           } else {
             return models.Standing.destroy({ where: { week_id: m.week_id } }).then(d => { 
               return models.Prediction.table(m.week_id).then(table => {
-                
                 let row = 0, rank = 1, prev = 0;
 
                 let rankings = table.players
                   .filter(row => row.user != undefined)
                   .sort((a, b) => (b.points - a.points));
 
+                  console.log(rankings);
                 rankings.map(line => {
                   if (line.points == prev) {
                     row++;
@@ -144,17 +144,22 @@ const standings = (sequelize, DataTypes) => {
                     rank = ++row;
                   }
                   prev = line.points;
-                  line.rank = rank;
+                  line.position = rank;
+                  line.user_id = line.id;
                   delete line.closest;
                   delete line.user;
                   delete line.total;
+                  delete line.id
                   line.week_id = m.week_id;
                 })
+
+                console.log(rankings);
+                console.log('--------');
 
                 return models.Standing.bulkCreate(rankings).then(ins => {
                   logger.info(`updating match ${ mid } recreated ${ ins.length }/${ d } standings for week ${ m.week_id }`);
                   return ins;
-                });
+                }).catch(e => { console.log(e.name); logger.error(e); });
 
               })
             })
