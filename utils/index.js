@@ -98,9 +98,9 @@ const utils = {
     return validScore(score);
   },  
 
-  calc: (pred, result, joker) => {
-  
+  calc: (pred, result, joker, gotw) => {
     let pg, rg, score = 0;
+    let multiplier = (gotw + joker + 1); // score is doubled if joker or gotw (can't be both)
     if (validScore(result) && validScore(pred)) {
       rg = result.split('-');
       pg = pred.split('-');
@@ -109,13 +109,13 @@ const utils = {
     }
 
     if (pred == result) {
-      score = points.win * (joker + 1);
+      score = points.win * multiplier;
     } else if ((pg[0] - rg[0]) == (pg[1] - rg[1])) {
-      score = points.correct_difference * (joker + 1);
+      score = points.correct_difference * multiplier;
     } else if (sgn(pg[0] - pg[1]) == sgn(rg[0] - rg[1])) {
-      score = points.correct_result * (joker + 1);
+      score = points.correct_result * multiplier;
     } else {
-      score = (joker * points.joker_penalty);
+      score = (joker * points.joker_penalty) ;
     }
 
     return score;
