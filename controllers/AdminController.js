@@ -31,7 +31,6 @@ const controller = {
     let result      = req.body.result,
         mid         = req.body.mid,
         tipoutcome  = null;
-
     // if the posted result isn't valid, return
     if (!utils.validScore(result)) { 
       res.send(false);
@@ -56,18 +55,24 @@ const controller = {
         let usr = req.user ? req.user.username : '(unknown)';
         if (row) logger.info(`Match ${ mid } result set to: ${ result } by ${ usr }`);
         // then map across promises for each matching prediction/bet to update them
-        let preds = models.Prediction.findAll({ where: { match_id: mid } }),
+        let preds = models.Prediction.findAll({ 
+              where: { match_id: mid },
+              include: {
+                model: models.Match,
+                attributes: ['gotw']
+              }
+            }),
             tips = models.Bet.findAll({ 
               where: { match_id: mid },
               include: {
                 model: models.Match,
-                attributes: ['odds1', 'odds2', 'oddsX', 'result']
+                attributes: ['odds1', 'odds2', 'oddsX', 'result', 'gotw']
               }
             }),
             updates = { gm: 0, tp: 0, standings: 0 };
 
         let promisePreds = Promise.map(preds, pred => {
-          let pts = utils.calc(pred.pred, result, pred.joker);
+          let pts = utils.calc(pred.pred, result, pred.joker, pred.match.gotw);
           pred.update({
             points: pts
           })
