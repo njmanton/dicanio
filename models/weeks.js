@@ -26,9 +26,9 @@ const weeks = (sequelize, DataTypes) => {
     classMethods: {
       current: () => {
         const models  = require('.'),
-              now     = moment().format('YYYY-MM-DD');
+              today   = moment();
         return models.Week.findOne({
-          where: { start: { $lte: now }, status: 0 },
+          where: { start: { $lte: today }, status: 0 },
           attributes: ['id', 'start', 'status'],
           order: 'start DESC',
           raw: true
