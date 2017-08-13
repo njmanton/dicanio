@@ -71,7 +71,7 @@ const standings = (sequelize, DataTypes) => {
         });
 
         return Promise.join(curr, prev, (curr, prev) => {
-          
+
           curr.sort((a, b) => { return b.points - a.points });
           prev.sort((a, b) => { return b.points - a.points });
           // calculate the rank on each array
@@ -152,9 +152,6 @@ const standings = (sequelize, DataTypes) => {
                   delete line.id
                   line.week_id = m.week_id;
                 })
-
-                console.log(rankings);
-                console.log('--------');
 
                 return models.Standing.bulkCreate(rankings).then(ins => {
                   logger.info(`updating match ${ mid } recreated ${ ins.length }/${ d } standings for week ${ m.week_id }`);
