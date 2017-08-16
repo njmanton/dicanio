@@ -34,7 +34,7 @@ const controller = {
     })
   }],
 
-  get_id: function(req, res, id) {
+  get_id: [utils.isAuthenticated, function(req, res, id) {
     
     if (!isNaN(id)) {
 
@@ -63,7 +63,7 @@ const controller = {
       res.status(404).render('errors/404');
     }
 
-  },
+  }],
 
   post_edit: [utils.isAuthenticated, function(req, res) {
 

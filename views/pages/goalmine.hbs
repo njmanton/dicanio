@@ -1,17 +1,15 @@
-<section>
+<section class="">
   
-  <header>
     <h2>Goalmine</h2>
-    <ul class="tabs" data-tab>
-      <li class="active tab-title"><a href="#about">About</a></li>
-      <li class="tab-title"><a href="#howto">How to Play</a></li>
-      <li class="tab-title"><a href="#rules">Rules</a></li>
-      <li class="tab-title"><a href="#faq">FAQs</a></li>
+    <ul class="nav nav-pills" role="tablist">
+      <li class="nav-item"><a data-toggle="tab" class="nav-link active" href="#about">About</a></li>
+      <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#howto">How to Play</a></li>
+      <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#rules">Rules</a></li>
+      <li class="nav-item"><a data-toggle="tab" class="nav-link" href="#faq">FAQs</a></li>
     </ul>
-  </header>
   
-  <div class="tabs-content">
-    <div class="content active" id="about">
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="about">
       
       <h3>About</h3>
       <p>Goalmine is a football prediction website. Each week, 12 matches are picked and you enter your predictions for these games. You gain points based on how close your prediction was to the result.</p>
@@ -26,7 +24,7 @@
       
     </div>
     
-    <div class="content" id="howto">
+    <div role="tabpanel" class="tab-pane" id="howto">
       <h3>How to play Goalmine</h3>
 
       <h4>A quick tour</h4>
@@ -56,7 +54,7 @@
   
     </div>
     
-    <div class="content" id="faq">
+    <div role="tabpanel" class="tab-pane" id="faq">
       
       <h3>Frequently Asked Questions</h3>
 
@@ -149,7 +147,7 @@
 
     </div>
 
-    <div class="content" id="rules">
+    <div role="tabpanel" class="tab-pane" id="rules">
       <h3>Rules</h3>
       <ol>
         <li>The entry fee is &pound;1 per week.</li>
@@ -170,19 +168,13 @@
           </ul>
           GotW and Joker matches double the above scores
         </li>
-        <li>The player (or players) whose total number of goals predicted is closest to the actual number of goals, will recieve a bonus score of <strong>3</strong> points.</li>
-        <li>Final scores will be those at full-time. If a match goes to extra-time, then the final score at the end of extra-time will be counted. Penalty shootouts will <strong>not</strong> count towards the result or the number of goals scored</li>
-        <li>In the event that a match is not completed during the week, that match is null and void and will score zero points.</li>
+        <li>The player (or players) whose total number of goals predicted is closest to the actual number of goals, will receive a bonus score of <strong>3</strong> points.</li>
+        <li>Final scores will be those at full-time. If a match goes to extra-time, then the final score at the end of extra-time will be counted. Penalty shootouts will <strong>not</strong> count towards the result nor the number of goals scored</li>
+        <li>In any event that a match is not completed during the week, that match is null and void and will score zero points.</li>
         <li>The winner of each week will be the person with the highest score, following the final match. If there is a tie at the end of the week then the money will be shared equally.</li>
       </ol>
 
     </div>
+  </div>
   
 </section>
-
-
-
-
-
-
-  
