@@ -62,32 +62,32 @@ const routes = app => {
 
   });
 
-  app.get('/auth/facebook', 
-    passport.authenticate('facebook', {
-      //scope: ['email', 'photo']
-    })
-  );
+  // app.get('/auth/facebook', 
+  //   passport.authenticate('facebook', {
+  //     //scope: ['email', 'photo']
+  //   })
+  // );
 
-  app.get('/auth/facebook/callback', 
-    passport.authenticate('facebook', {
-      successRedirect: '/home',
-      failureRedirect: '/'
-    })
-  );
+  // app.get('/auth/facebook/callback', 
+  //   passport.authenticate('facebook', {
+  //     successRedirect: '/home',
+  //     failureRedirect: '/'
+  //   })
+  // );
 
-  app.get('/auth/google', 
-    passport.authenticate('google', {
-      scope: ['profile']
-    })
-  );
+  // app.get('/auth/google', 
+  //   passport.authenticate('google', {
+  //     scope: ['profile']
+  //   })
+  // );
 
-  app.get('/auth/google/callback',
-    passport.authenticate('google', {
-      successRedirect: '/home',
-      failureRedirect: '/',
-      failureFlash: true
-    })
-  );
+  // app.get('/auth/google/callback',
+  //   passport.authenticate('google', {
+  //     successRedirect: '/home',
+  //     failureRedirect: '/',
+  //     failureFlash: true
+  //   })
+  // );
 
   app.get('/logout', (req, res) => {
     let usr = req.user ? req.user.username : '(unknown)';
