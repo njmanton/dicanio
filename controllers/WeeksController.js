@@ -19,10 +19,11 @@ const controller = {
           attributes: [[models.sequelize.fn('COUNT', models.sequelize.col('date')), 'count']]
         },
         group: ['id'],
-        where: { $and: [{ id: { $gte: config.goalmine.start_week } }, { id: { $lte: 505 } }] },
-        order: [['id', 'desc']],
+        where: { id: { $gte: config.goalmine.start_week } },
+        order: [['id', 'asc']],
         raw: true
       }).then(weeks => {
+        weeks = weeks.slice(0, 5).reverse();  // take only the five latest weeks
         weeks.map(week => {
           week.end = moment(week.start).add(6, 'days').format('ddd DD MMM');
           week.start = moment(week.start).format('ddd DD MMM');
@@ -49,6 +50,7 @@ const controller = {
 
   get_id: function(req, res, id) {
     let week = models.Week.findById(id),
+        comp = models.Week.checkComplete(id),
         matches = models.Match.findAll({
           where: { week_id: id },
           attributes: ['id', 'date', 'result', 'game'],
@@ -66,7 +68,7 @@ const controller = {
           }]
         });
 
-    Promise.join(week, matches, (week, matches) => {
+    Promise.join(week, comp, matches, (week, comp, matches) => {
       if (week) {
         matches.map(m => { 
           m.fdate = moment(m.date).format('ddd DD MMM');
@@ -78,7 +80,8 @@ const controller = {
         res.render('weeks/view', {
           title: 'Week ' + week.id,
           week: week,
-          matches: matches
+          matches: matches,
+          complete: comp
         });
       } else {
         res.status(404).render('errors/404');        
@@ -94,6 +97,20 @@ const controller = {
     })
 
   },
+
+  get_complete_id: [utils.isAdmin, function(req, res, id) {
+    models.Week.checkComplete(id).then(wk => {
+      if (wk) {
+        models.Week.finalise(id).then(f => {
+          req.flash('success', `Week ${ id } has been set as completed`);
+          res.redirect('/weeks/' + id);
+        });
+      } else {
+        req.flash('error', `Couldn't set week ${ id } as completed`);
+        res.redirect('/weeks/' + id);
+      }
+    })
+  }]
 
 }
 

@@ -1,5 +1,17 @@
 <section>
   <h2>Week {{ week.id }}</h2>
+  <p>
+    {{#if user.admin }}
+
+      {{#if complete }}
+      <a href="/weeks/complete/{{ week.id }}" class="btn btn-success">Finalise Week</a>
+      {{ else }}
+        {{#unless week.status }}
+        <a href="/matches/add/{{ week.id }}" class="btn btn-primary">Add Match</a>
+        {{/unless }}      
+      {{/if }}
+    {{/if }}
+  </p>
   <table id="weeksView" class="table">
     <thead>
       <tr>
@@ -32,9 +44,4 @@
       {{/each }}
     </tbody>
   </table>
-  <p>
-  {{#if user.admin }}
-  <a href="/matches/add/{{ week.id }}" class="btn btn-primary">Add Match</a>
-  {{/if }}
-  </p>
 </section>
