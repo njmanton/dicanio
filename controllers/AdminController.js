@@ -108,14 +108,12 @@ const controller = {
         amount: req.body.amount,
         description: req.body.desc
       }).then(ledger => {
-        res.send({ id: ledger.id, name: ledger.name });
+        res.send({ id: ledger.id });
         logger.info('Ledger id: ' + ledger.id + ' created');
       }).catch(e => {
         logger.error(e.name);
       })
     } else {
-      console.log('error');
-      req.flash('error', 'Sorry that ledger item couldn\'t be created');
       res.send(false);
     }
   }],

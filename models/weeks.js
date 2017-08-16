@@ -44,13 +44,17 @@ const weeks = (sequelize, DataTypes) => {
         const models = require('.');
 
         let weekComplete = models.Week.findById(week),
+            existingMatches = models.Match.findAll({
+              attributes: ['id'],
+              where: { week_id: week}
+            }),
             outstandingMatches = models.Match.findAll({
               attributes: ['id'],
               where: { week_id: week, result: null }
             });
 
-        return Promise.join(weekComplete, outstandingMatches, (w, o) => {
-          return w.status == 0 && o.length == 0
+        return Promise.join(weekComplete, existingMatches, outstandingMatches, (w, e, o) => {
+          return w && w.status == 0 && o.length == 0 && e.length != 0;
         })
       },
 
@@ -78,6 +82,7 @@ const weeks = (sequelize, DataTypes) => {
               amount: -1,
               description: 'Entry for week ' + wid
             }).catch(e => {
+              console.log(p[x], e);
               logger.error(e);
             }));
           }
@@ -95,7 +100,7 @@ const weeks = (sequelize, DataTypes) => {
           logger.info(`Adding Goalmine winner ledgers for week ${ wid }`)
           // finally add the pot
           ledgers.push(models.Ledger.create({
-            user_id: 'a',
+            user_id: 0, // user id 0 is the pot
             amount: p.length * (config.goalmine.win_pct - 1),
             description: 'Pot for week ' + wid
           }).catch(e => {
@@ -105,6 +110,7 @@ const weeks = (sequelize, DataTypes) => {
         }).then(() => {
           return Promise.all(ledgers);
         }).catch(e => {
+          console.log(e);
           logger.error(e);
         })
       }
