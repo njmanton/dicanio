@@ -4,6 +4,9 @@
 const models  = require('../models'),
       Promise = require('bluebird'),
       utils   = require('../utils'),
+      marked  = require('marked'),
+      emoji   = require('node-emoji'),
+      mail      = require('../mail'),
       config  = require('../config'),
       logger  = require('winston'),
       moment  = require('moment');
@@ -139,6 +142,26 @@ const controller = {
       req.flash('error', 'No such user');
       res.redirect(req.url);
     }
+  }],
+
+  post_sendmail: [utils.isAdmin, function(req, res) {
+
+    let template = 'bulk_email.hbs',
+        address = 'goalmine-test@goalmine.eu',
+        now = moment().format('YYYY-MM-DD'),
+        context = {
+          from: req.user ? req.user.username : 'Admin',
+          body: emoji.emojify(req.body.body),
+          date: now
+        };
+
+    mail.send(address, null, req.body.subject, template, context, mail_result => {
+      console.log(mail_result);
+    })
+
+    req.flash('success', 'email sent');
+    res.redirect('/');
+
   }],
 
   post_finalise: [utils.isAdmin, function(req, res) {

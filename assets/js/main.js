@@ -339,6 +339,17 @@ $(document).ready(function() {
     checkResetForm();     
   })
 
+  $('#sendPreview').on('click', function() {
+    $.post({
+      url: '/posts/preview',
+      data: {
+        body: $('#sendBody').val()
+      }
+    }).done(function(res) {
+      $('#sendPreviewPane').html(res);
+    })
+  })
+
   $('#postPreview').on('click', function() {
     $.post({
       url: '/posts/preview',
