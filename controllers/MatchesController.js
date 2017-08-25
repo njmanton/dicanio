@@ -96,12 +96,15 @@ const controller = {
       }],
     }).then(match => {
       if (match) {
+        let goals = match.result ? match.result.split('-') : ['-', '-'];
+
         match.fdate = moment(match.date).format('ddd DD MMM');
         res.render('matches/view', {
           title: 'Match ' + match.id,
           data: match,
           result: match.result || 'v',
-          editable: match.predictions.length == 0 && match.bets.length == 0
+          editable: req.user && req.user.admin && match.predictions.length == 0 && match.bets.length == 0,
+          goals: goals
         })
       } else {
         res.status(404).render('errors/404');

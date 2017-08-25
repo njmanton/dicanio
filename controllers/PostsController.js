@@ -21,8 +21,8 @@ const controller = {
     }).then(posts => {
       posts.map(post => { 
         post.body = emoji.emojify(marked(post.body)); 
-        post.date = moment(post.createdAt).format('ddd, DD MMM YY');
-        post.udate = post.updatedAt ? moment(post.updatedAt).format('ddd, DD MMM YY') : null;
+        post.date = moment(post.createdAt).format('DD MMM, HH:mm');
+        post.udate = (post.updatedAt && (post.updatedAt > post.createdAt)) ? moment(post.updatedAt).format('DD MMM, HH:mm') : null;
       });
       res.render('posts/index', {
         title: 'Posts',
@@ -66,8 +66,9 @@ const controller = {
 
   post_edit: [utils.isAdmin, function(req, res) {
     // handle req.body
-    let usr = req.user ? req.user.username : '(unknown)';
+    let usr = req.user ? req.user : {};
     let upd = {
+      title: req.body.title,
       body: req.body.body,
       sticky: req.body.sticky,
       author_id: usr.id || 0

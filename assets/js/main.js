@@ -339,6 +339,17 @@ $(document).ready(function() {
     checkResetForm();     
   })
 
+  $('#sendPreview').on('click', function() {
+    $.post({
+      url: '/posts/preview',
+      data: {
+        body: $('#sendBody').val()
+      }
+    }).done(function(res) {
+      $('#sendPreviewPane').html(res);
+    })
+  })
+
   $('#postPreview').on('click', function() {
     $.post({
       url: '/posts/preview',
@@ -406,6 +417,25 @@ $(document).ready(function() {
         })        
       }
     }
+  })
+
+  $('#scoreUpdateButton').on('click', function() {
+    $('#scoreUpdate').toggle();
+  })
+
+  $('#scoreUpdate :text').on('change', function() {
+    var pred = $(this);
+    $.post('/admin/match/update', {
+      mid: pred.data('mid'),
+      result: pred.val()
+    }).done(function(res) {
+      pred.parent().addClass('ajaxChange');
+      console.log(res);
+      // TODO remove row from table
+    }).fail(function(err) {
+      pred.parent().removeClass('ajaxChange');
+      pred.val('');
+    })    
   })
 
 })

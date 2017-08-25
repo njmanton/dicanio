@@ -7,7 +7,7 @@ const fs      = require('fs'),
 
 const mail = {
 
-  send: function(recipient, cc, subject, template_file, context, done) {
+  send: (recipient, cc, subject, template_file, context, done) => {
 
     // convert template and context into message
     let template = fs.readFileSync(__dirname + '/templates/' + template_file, 'utf8');
@@ -27,7 +27,7 @@ const mail = {
     mailgun.messages().send(data).then(response => {
       console.log('email sent', response); // move to winston
       done(response);
-    }, function(err) {
+    }, err => {
       console.error('not sent', err); // move to winston
       done(err);
     });
