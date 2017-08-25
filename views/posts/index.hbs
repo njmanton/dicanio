@@ -10,8 +10,11 @@
     <div class="postfooter">
       <p>
         <span>Posted by <a href="/users/{{ user.id }}">{{ user.username }}</a> on {{ date }}{{#if udate }}, updated on {{ udate }}{{/if }}</span>
-        <span style="font-size: 1em; float: right;">
-          {{#if ../user.admin }}<span title="edit" data-pid="{{ id }}" class="fa fa-pencil"></span> <span title="delete" data-pid="{{ id }}" class="fa fa-trash"></span>{{/if }}
+        <span class="ctrls">
+          {{#if ../user.admin }}
+          <span><a href="/posts/edit/{{ id }}"><span title="edit" data-pid="{{ id }}" class="fa fa-pencil"></span></a></span>
+          <span title="delete" data-pid="{{ id }}" class="fa fa-trash"></span>
+          {{/if }}
         </span>
       </p>
     </div>

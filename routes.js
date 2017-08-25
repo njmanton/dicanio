@@ -28,8 +28,8 @@ const routes = app => {
     }).then(posts => {
       posts.map(post => { 
         post.body = emoji.emojify(marked(post.body)); 
-        post.date = moment(post.createdAt).format('ddd, DD MMM YY');
-        post.udate = post.updatedAt ? moment(post.updatedAt).format('ddd, DD MMM YY') : null;
+        post.date = moment(post.createdAt).format('DD MMM, HH:mm');
+        post.udate = post.updatedAt ? moment(post.updatedAt).format('DD MMM, HH:mm') : null;
       });
       res.render('main', {
         title: 'Welcome',
