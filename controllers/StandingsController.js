@@ -1,7 +1,8 @@
 // jshint node: true, esversion: 6
 'use strict';
 
-const models = require('../models');
+const Promise = require('bluebird'),
+      models  = require('../models');
 
 const controller = {
 
@@ -35,6 +36,19 @@ const controller = {
     models.Place.updateTable(id).then(r => {
       let rr = JSON.stringify(r, null, 2);
       res.send(`<pre>${rr}</pre>`);
+    })
+  },
+
+  get_index: function(req, res) {
+    let uid = req.user ? req.user.id : null;
+    models.Week.current().then(wk => {
+      Promise.join(models.Place.overall(uid, wk.id), models.Standing.overall(uid, wk.id), (tipping, goalmine) => {
+        res.render('standings/index', {
+          title: 'Standings at Week' + wk.id,
+          tipping: tipping,
+          goalmine: goalmine
+        })
+      })
     })
   }
 

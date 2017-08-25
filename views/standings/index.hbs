@@ -1,0 +1,70 @@
+<section>
+  <h3>Standings</h3>
+  <div class="row justify-content-md-center">
+    <div class="col-md-5">
+    <h5>Goalmine</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Place</th>
+            <th>Player</th>
+            <th>Games</th>
+            <th>Points (lowest)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each goalmine }}
+          <tr class="{{#if self }}self{{/if }}">
+            <td><span class="sym {{ class }}">{{ symbol }}</span> {{ rank }} ({{ prevrank }})</td>
+            <td><a href="/users/{{ id }}">{{ username }}</a></td>
+            <td>{{ games }}</td>
+            <td>{{ points }} ({{ min }})</td>
+          </tr>
+          {{/each }}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-5">
+      <h5>Tipping</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Place</th>
+            <th>Player</th>
+            <th>Balance</th>
+            <th>Last Week</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each tipping }}
+          <tr class="{{#if self }}self{{/if }} {{#if breakeven }}breakeven{{/if}}">
+            <td><span class="sym {{ class }}">{{ symbol }} {{ rank }}</span></td>
+            <td><a href="/users/{{ id }}">{{ username }}</a></td>
+            <td><span>{{ balance }}</span></td>
+            <td>{{ prevbal }} ({{ prevrank }})</td>
+          </tr>
+          {{/each }}
+        </tbody>
+      </table> 
+    </div>
+  </div>
+</section>
+<style>
+  .sym.up {
+    color: green;
+  }
+  .sym.down {
+    color: red;
+  }
+  .sym.level {
+    color: blue;
+  }
+
+  .self td {
+    background-color: #bbb;
+  }
+
+  .breakeven td {
+    border-top: 3px dashed #fee;
+  }
+</style>
