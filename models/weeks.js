@@ -28,9 +28,9 @@ const weeks = (sequelize, DataTypes) => {
         const models  = require('.'),
               today   = moment();
         return models.Week.findOne({
-          where: { start: { $lte: today }, status: 0 },
+          where: { status: 0 },
           attributes: ['id', 'start', 'status'],
-          order: 'start DESC',
+          order: 'start ASC',
           raw: true
         }).then(week => {
           return week;
