@@ -18,7 +18,8 @@ const controller = {
     Promise.join(table, overall, week, (t, o, w) => {
 
       if (t !== null) {
-        let expired = (moment(w.start) < moment()) || w.status;
+        let dl = moment(w.start).startOf('day').add(12, 'h');
+        let expired = moment().isAfter(dl) || w.status;
         res.render('predictions/view', {
           title: 'Predictions',
           week: id,
