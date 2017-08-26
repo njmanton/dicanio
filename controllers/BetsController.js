@@ -13,7 +13,8 @@ const controller = {
     models.Week.findById(id).then(wk => {
       let week = id || wk.id;
       let uid = req.user ? req.user.id : null;
-      let expired = (moment(wk.start) < moment()) || wk.status;
+      let dl = moment(wk.start).startOf('day').add(12, 'h');
+      let expired = moment().isAfter(dl) || wk.status;
       if (expired) {
         req.flash('error', `The deadline has passed for week ${ id }, you can no longer edit bets`);
         res.redirect('/weeks/' + id);
@@ -45,7 +46,8 @@ const controller = {
 
       Promise.join(week, table, overall, (wk, bets, overall) => {
         if (bets !== null) {
-          let expired = (moment(wk.start) < moment()) || wk.status;
+          let dl = moment(wk.start).startOf('day').add(12, 'h');
+          let expired = moment().isAfter(dl) || wk.status;
           res.render('bets/view', {
             title: 'Bets',
             week: id,
