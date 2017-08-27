@@ -214,7 +214,7 @@ textarea, #postPreviewPane, #sendPreviewPane {
 
 /* forms */
 .form-group {
-  margin: 0 auto 2rem auto;
+  margin: 1rem auto 2rem auto;
   width: 50em;
   max-width: 50%; }
   .form-group .form-control {

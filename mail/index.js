@@ -3,7 +3,9 @@
 
 const fs      = require('fs'),
       hbs     = require('handlebars'),
-      mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: 'lcssl.org' });
+      pkg     = require('../package.json'),
+      logger  = require('winston'),
+      mailgun = require('mailgun-js')({ apiKey: process.env.MAILGUN_KEY, domain: 'goalmine.eu' });
 
 const mail = {
 
@@ -13,11 +15,17 @@ const mail = {
     let template = fs.readFileSync(__dirname + '/templates/' + template_file, 'utf8');
     let message = hbs.compile(template);
 
+    context.app = {
+      version: pkg.version,
+      name: pkg.name
+    }
+
     var data = {
-      from: '<goalmine@goalmine.eu>',
+      from: '<do-not-reply@goalmine.eu>',
       to: recipient,
       subject: subject,
-      text: message(context)
+      text: message(context),
+      html: message(context)
     };
 
     // if (cc) {
@@ -25,10 +33,10 @@ const mail = {
     // }
 
     mailgun.messages().send(data).then(response => {
-      console.log('email sent', response); // move to winston
+      logger.info(`email sent to ${ recipient } with subject ${ subject }`);
       done(response);
     }, err => {
-      console.error('not sent', err); // move to winston
+      winston.error('email not sent');
       done(err);
     });
 

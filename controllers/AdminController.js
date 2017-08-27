@@ -151,7 +151,7 @@ const controller = {
         now = moment().format('YYYY-MM-DD'),
         context = {
           from: req.user ? req.user.username : 'Admin',
-          body: emoji.emojify(req.body.body),
+          body: marked(emoji.emojify(req.body.body)),
           date: now
         };
 
