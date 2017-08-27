@@ -1,7 +1,10 @@
-Message from: {{ from }}
+<b>Message from Goalmine admin ({{ from }})</b>
 
-{{ body }}
+<p>{{{ body }}}</p>
 
---
-Goalmine
-http://goalmine.eu/
+<footer>
+<hr />
+<p>Goalmine v{{ app.version }} ({{ app.name }})</p>
+<small>This mail was sent to %recipient_email%. Click <a href="%mailing_list_unsubscribe_url%">here</a> to unsubscribe. Mail sent by <a href="https://mailgun.org">mailgun</a>.</small>
+</footer>
+

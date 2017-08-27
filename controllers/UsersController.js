@@ -67,7 +67,7 @@ const controller = {
               };
 
           mail.send(req.body.email, cc, subject, template, context, mail_result => {
-            console.log(mail_result);
+            logger.info(mail_result);
           })
         }).catch(e => {
           console.log('error', e);

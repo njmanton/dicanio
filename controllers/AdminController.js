@@ -147,11 +147,11 @@ const controller = {
   post_sendmail: [utils.isAdmin, function(req, res) {
 
     let template = 'bulk_email.hbs',
-        address = 'goalmine-test@goalmine.eu',
+        address = 'tipping-players@goalmine.eu',
         now = moment().format('YYYY-MM-DD'),
         context = {
           from: req.user ? req.user.username : 'Admin',
-          body: emoji.emojify(req.body.body),
+          body: marked(emoji.emojify(req.body.body)),
           date: now
         };
 
