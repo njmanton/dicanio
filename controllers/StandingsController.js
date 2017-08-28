@@ -44,7 +44,8 @@ const controller = {
     models.Week.current().then(wk => {
       Promise.join(models.Place.overall(uid, wk.id), models.Standing.overall(uid, wk.id), (tipping, goalmine) => {
         res.render('standings/index', {
-          title: 'Standings at Week' + wk.id,
+          title: 'Standings at Week ' + wk.id,
+          week: wk.id - 1,
           tipping: tipping,
           goalmine: goalmine
         })
