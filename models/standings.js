@@ -60,13 +60,13 @@ const standings = (sequelize, DataTypes) => {
         let curr = models.sequelize.query(sql, { 
           replacements: { 
             start: start, 
-            end: wid },
+            end: wid - 1 },
           type: sequelize.QueryTypes.SELECT 
         });
         let prev = models.sequelize.query(sql, { 
           replacements: { 
             start: start, 
-            end: wid - 1 },
+            end: wid - 2 },
           type: sequelize.QueryTypes.SELECT 
         });
 
