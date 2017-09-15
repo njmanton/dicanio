@@ -1,6 +1,6 @@
 {
   "name": "dicanio",
-  "version": "8.0.23",
+  "version": "8.0.24",
   "description": "node goalmine",
   "main": "server.js",
   "engines": {
