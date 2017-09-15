@@ -119,19 +119,20 @@ const places = (sequelize, DataTypes) => {
               Promise = require('bluebird'),
               config = require('../config');
 
-        let start = (single) ? wid : config.goalmine.league_start;
+        let start = single ? wid : config.goalmine.league_start;
+        let end = single ? wid : wid - 1;
 
         let sql = 'SELECT U.id, U.username, SUM(P.balance) AS balance FROM places P INNER JOIN users U ON U.id = P.user_id WHERE P.week_id >= :start AND P.week_id <= :end GROUP BY U.id, U.username';
         let curr = models.sequelize.query(sql, { 
           replacements: { 
             start: start, 
-            end: wid - 1 },
+            end: end },
           type: sequelize.QueryTypes.SELECT
         });
         let prev = models.sequelize.query(sql, { 
           replacements: { 
             start: start, 
-            end: wid - 2 },
+            end: end - 1 },
           type: sequelize.QueryTypes.SELECT
         });
 

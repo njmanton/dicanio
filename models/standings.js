@@ -54,19 +54,20 @@ const standings = (sequelize, DataTypes) => {
               Promise = require('bluebird'),
               config = require('../config');
 
-        let start = (single) ? wid : config.goalmine.league_start;
+        let start = single ? wid : config.goalmine.league_start;
+        let end = single ? wid : wid - 1;
 
         let sql = 'SELECT U.id, U.username, COUNT(S.points) AS games, SUM(S.points) AS points, MIN(S.points) AS min FROM standings S INNER JOIN users U ON U.id = S.user_id WHERE S.week_id >= :start AND S.week_id <= :end GROUP BY U.id, U.username';
         let curr = models.sequelize.query(sql, { 
           replacements: { 
             start: start, 
-            end: wid - 1 },
+            end: end },
           type: sequelize.QueryTypes.SELECT 
         });
         let prev = models.sequelize.query(sql, { 
           replacements: { 
             start: start, 
-            end: wid - 2 },
+            end: end - 1 },
           type: sequelize.QueryTypes.SELECT 
         });
 
