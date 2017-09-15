@@ -77,7 +77,7 @@ const controller = {
       where: { id: req.body.id }
     }).then(r => {
       if (r) {
-        logger.info(`Post id ${ id } was successfully updated by ${ usr }`);
+        logger.info(`Post id ${ req.body.id } was successfully updated by ${ usr }`);
         req.flash('success', 'Post updated');
         res.redirect('/posts');
       } else {
