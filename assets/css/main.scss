@@ -347,3 +347,17 @@ table.matchresult {
 #scoreUpdate {
   display: none;
 }
+
+.life {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: green;
+  .lost {
+    color: red !important;
+  }
+}
+
+.easy-autocomplete-container ul {
+  width: 20em;
+}
+

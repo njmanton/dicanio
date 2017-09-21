@@ -16,6 +16,7 @@ const Sequelize = require('sequelize'),
         Standing:    sequelize.import('./standings.js'),
         Post:        sequelize.import('./posts.js'),
         Place:       sequelize.import('./places.js'),
+        Khistory:    sequelize.import('./khistories.js'),
         Ledger:      sequelize.import('./ledgers.js')
       };
 
@@ -86,9 +87,25 @@ db.Kentry.belongsTo(db.Match, { foreignKey: 'match_id' });
 db.User.hasMany(db.Kentry, { foreignKey: 'user_id' });
 db.Kentry.belongsTo(db.User, { foreignKey: 'user_id' });
 
+// week 1:n kentry
+db.Week.hasMany(db.Kentry, { foreignKey: 'week_id' });
+db.Kentry.belongsTo(db.Week, { foreignKey: 'week_id' });
+
 // user 1:n killer
 db.User.hasMany(db.Killer, { foreignKey: 'admin_id' });
 db.Killer.belongsTo(db.User, { foreignKey: 'admin_id' });
+
+// user 1:n khistory
+db.User.hasMany(db.Khistory, { foreignKey: 'user_id' });
+db.Khistory.belongsTo(db.User, { foreignKey: 'user_id' });
+
+// killer 1:n khistory
+db.Killer.hasMany(db.Khistory, { foreignKey: 'killer_id' });
+db.Khistory.belongsTo(db.Killer, { foreignKey: 'killer_id' });
+
+// team 1:n khistory
+db.Team.hasMany(db.Khistory, { foreignKey: 'team_id' });
+db.Khistory.belongsTo(db.Team, { foreignKey: 'team_id' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

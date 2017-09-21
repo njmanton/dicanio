@@ -11,20 +11,6 @@ const points = {
   joker_penalty: 0
 };
 
-const sgn = a => {
-  
-  if (a < 0) {
-    return -1;
-  } else if (a > 0) {
-    return 1;
-  } else if (a === 0) {
-    return 0;
-  } else {
-    return NaN;
-  }
-
-};
-
 const validScore = score => {
   try {
     let goals = score.split('-');
@@ -96,7 +82,7 @@ const utils = {
 
   validScore: score => {
     return validScore(score);
-  },  
+  },
 
   calc: (pred, result, joker, gotw) => {
     let pg, rg, score = 0;

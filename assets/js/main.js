@@ -114,6 +114,27 @@ $(document).ready(function() {
     }        
   })
 
+  $('#addKillerHome').easyAutocomplete({
+    url: function(phrase) {
+      var kid = $('#addKillerKid').val();
+      var uid = $('#addKillerUid').val();
+      var uri = '/teams/find/' + phrase + '?kid=' + kid + '&uid=' + uid;
+      return uri; 
+    },
+    getValue: 'name',
+    list: {
+      onSelectItemEvent: function() {
+        var id = $('#addKillerHome').getSelectedItemData().id;
+        $('#addKillerHomeId').val(id);
+      }
+    }
+  }).on('blur', function() {
+    if ($(this).getSelectedItemData() == -1) {
+      $(this).val('');
+      $('#addKillerHomeId').val('');
+    }        
+  })
+
   $('#addMatchAway').easyAutocomplete({
     url: function(phrase) {
       return '/teams/find/' + phrase
@@ -130,6 +151,27 @@ $(document).ready(function() {
       $(this).val('');      
       $('#addMatchAwayId').val('');
     }      
+  })
+
+  $('#addKillerAway').easyAutocomplete({
+    url: function(phrase) {
+      var kid = $('#addKillerKid').val();
+      var uid = $('#addKillerUid').val();
+      var uri = '/teams/find/' + phrase + '?kid=' + kid + '&uid=' + uid;
+      return uri; 
+    },
+    getValue: 'name',
+    list: {
+      onSelectItemEvent: function() {
+        var id = $('#addKillerAway').getSelectedItemData().id;
+        $('#addKillerAwayId').val(id);
+      }
+    }
+  }).on('blur', function() {
+    if ($(this).getSelectedItemData() == -1) {
+      $(this).val('');
+      $('#addKillerAwayId').val('');
+    }        
   })
 
   $('#addMatchLeague').easyAutocomplete({
