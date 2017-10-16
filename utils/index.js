@@ -98,7 +98,7 @@ const utils = {
       score = points.win * multiplier;
     } else if ((pg[0] - rg[0]) == (pg[1] - rg[1])) {
       score = points.correct_difference * multiplier;
-    } else if (sgn(pg[0] - pg[1]) == sgn(rg[0] - rg[1])) {
+    } else if (Math.sign(pg[0] - pg[1]) == Math.sign(rg[0] - rg[1])) {
       score = points.correct_result * multiplier;
     } else {
       score = (joker * points.joker_penalty) ;
