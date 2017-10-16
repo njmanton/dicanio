@@ -90,10 +90,11 @@ const controller = {
         })
         // then update the places and standings tables 
         let updStandings = models.Standing.updateTable(mid),
-            updPlaces = models.Place.updateTable(mid);
+            updPlaces = models.Place.updateTable(mid),
+            updKiller = ((row.game & 4) != 0) ? models.Killer.updateKiller(mid) : null;
 
         // join all promises together and resolve them
-        Promise.join(promisePreds, promiseTips, updStandings, updPlaces, (preds, tips, standings, places) => {
+        Promise.join(promisePreds, promiseTips, updStandings, updPlaces, updKiller, (preds, tips, standings, places, killer) => {
           updates.standings = standings.length;
           updates.places = places.length;
           logger.info(`${ updates.gm } predictions/${ updates.tp } bets updated`);
