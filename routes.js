@@ -38,6 +38,30 @@ const routes = app => {
     })
   });
 
+  app.get('/money/:uid', utils.isAuthenticated, (req, res) => {
+    if (req.user && (req.params.uid == 0 || req.user.admin || req.user.id == req.params.uid)) {
+      models.Ledger.view(req.params.uid).then(data => {
+        if (!data) {
+          res.status(404).render('errors/404');
+        } else {
+          res.render('ledgers/view', {
+            title: 'Ledger for ' + data.username,
+            data: data.rows
+          })          
+        }
+
+      })
+    } else {
+      res.sendStatus(403);
+    }
+  });
+
+  app.get('/pot', utils.isAjax, (req, res) => {
+    models.Ledger.balance(0).then(pot => { 
+      res.status(200).send(pot.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' }));
+    })
+  })
+
   // login
   app.get('/login', utils.isAnon, (req, res) => {
     res.render('players/login', {

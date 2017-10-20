@@ -20,6 +20,7 @@
     </div>
     <div class="col-sm-2">
       <p>Goalmine v{{ pkg.version }} <em>({{ pkg.name }})</em></p>
+      <p>Goalmine Pot: <span id="potamt"></span></p>
     </div>      
   </footer>
 </div>
@@ -28,3 +29,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <script src="/js/vendor/jquery.easy-autocomplete.min.js"></script>
 <script src="/js/main.js"></script>
+<script>
+  $(document).ready(function() {
+    $.get({
+      url: '/pot'
+    }).success(function(p) {
+      $('#potamt').text(p);
+    }).fail(function(e) {
+      $('#potamt').text('Couldn\`t retrieve pot');
+    })
+  })
+</script>

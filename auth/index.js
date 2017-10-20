@@ -40,11 +40,12 @@ module.exports = app => {
           return done(null, false, { message: 'problem entering password' });
         }
         let now = moment().format('YYYY-MM-DD HH:mm:ss');
-        user.update({ resetpwd: null, lastlogin: now }); // nullify reset code, if present
-        req.flash('success', 'logged in');
-        logger.info(`${ user.username } logged in`);
-        return done(null, user);
-
+        models.Ledger.balance(user.id).then(b => {
+          user.update({ resetpwd: null, lastlogin: now, balance: b }); // nullify reset code, if present
+          req.flash('success', 'logged in');
+          logger.info(`${ user.username } logged in`);
+          return done(null, user);          
+        });
       }).catch(err => {
         logger.info('Error finding user');
         return done(err);
@@ -153,6 +154,7 @@ module.exports = app => {
   app.use((req, res, next) => {
     if (!res.locals.user && req.user) {
       res.locals.user = req.user;
+      res.locals.balance = req.user.balance.toLocaleString('en-GB', { style: 'currency', currency: 'GBP'});
     }
     next();
   });

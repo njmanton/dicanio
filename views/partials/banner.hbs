@@ -3,4 +3,5 @@
   <span>{{#if user }}{{ user.username }} | <a href="/logout">logout</a>{{ else }}<a href="/login">login</a>{{/if }}</span>
   <span>{{#if curweek }}| Week: {{ curweek }}{{/if }}</span>
   <span>{{#if user.admin }}| <a href="/admin">Admin</a>{{/if }}</span>
+  <span>{{#if user }}| <a href="/money/{{ user.id }}">Balance</a>: {{ balance }}{{/if }}</span>
 </section>
