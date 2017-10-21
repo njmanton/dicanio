@@ -71,7 +71,7 @@ const controller = {
       title: req.body.title,
       body: req.body.body,
       sticky: req.body.sticky,
-      author_id: usr.id || 0
+      //author_id: usr.id || 0
     };
     models.Post.update(upd, {
       where: { id: req.body.id }
