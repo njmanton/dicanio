@@ -1,0 +1,29 @@
+<section>
+  <h3>{{ title }}</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each data }}
+      <tr>
+        <td>{{ date }}</td>
+        <td>{{ description }}</td>
+        <td class="amt {{#if negamt }}negative{{/if }}">{{ amount }}</td>
+        <td class="amt {{#if negbalance }}negative{{/if }}">{{ balance }}</td>
+      </tr>
+      {{/each }}
+    </tbody>
+  </table>
+
+</section>
+<style>
+  .amt.negative {
+    color: red;
+  }
+</style>

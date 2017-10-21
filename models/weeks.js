@@ -101,7 +101,7 @@ const weeks = (sequelize, DataTypes) => {
           // finally add the pot
           ledgers.push(models.Ledger.create({
             user_id: 0, // user id 0 is the pot
-            amount: p.length * (config.goalmine.win_pct - 1),
+            amount: p.length * (1 - config.goalmine.win_pct),
             description: 'Pot for week ' + wid
           }).catch(e => {
             logger.error(e);
