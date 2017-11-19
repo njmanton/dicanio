@@ -24,7 +24,7 @@ const routes = app => {
         model: models.User,
         attributes: ['id', 'username']
       },
-      order: [['sticky', 'desc'], ['createdAt', 'desc']]
+      order: [['sticky', 'desc'], ['updatedAt', 'desc']]
     }).then(posts => {
       posts.map(post => { 
         post.body = emoji.emojify(marked(post.body)); 
