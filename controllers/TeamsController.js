@@ -143,29 +143,33 @@ const controller = {
 
   get_find_name: [utils.isAjax, function(req, res, name) {
 
-    // if uid and kid are passed as parameters, find the used teams for that killer game
-    models.Khistory.findAll({
-      where: { user_id: req.query.uid, killer_id: req.query.kid },
-      attributes: ['team_id']
-    }).then(teams => {
-      // create an array of used team ids 
-      let ids = [];
-      teams.map(t => {
-        ids.push(t.team_id);
-      })
-      let where = {
-          name: { $like: `%${ name }%` },
-          englishleague: 1 
-      }
-      // only if there are used teams add the final where clause
-      if (ids.length) where.id = { $notIn: ids };
-      models.Team.findAll({
-        where: where,
-        attributes: ['id', 'name']
-      }).then(teams => {
-        res.send(teams);
-      })
+    models.Team.findAll({ where: { name: { $like: `%${ name }%` } }, attributes: ['id', 'name'] }).then(rows => {
+      res.send(rows);
     })
+    
+    // // if uid and kid are passed as parameters, find the used teams for that killer game
+    // models.Khistory.findAll({
+    //   where: { user_id: req.query.uid, killer_id: req.query.kid },
+    //   attributes: ['team_id']
+    // }).then(teams => {
+    //   // create an array of used team ids 
+    //   let ids = [];
+    //   teams.map(t => {
+    //     ids.push(t.team_id);
+    //   })
+    //   let where = {
+    //       name: { $like: `%${ name }%` },
+    //       englishleague: 1 
+    //   }
+    //   // only if there are used teams add the final where clause
+    //   if (ids.length) where.id = { $notIn: ids };
+    //   models.Team.findAll({
+    //     where: where,
+    //     attributes: ['id', 'name']
+    //   }).then(teams => {
+    //     res.send(teams);
+    //   })
+    // })
 
   }]
 
