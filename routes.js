@@ -81,7 +81,7 @@ const routes = app => {
     
     res.render('players/view', {
       title: 'Home',
-      gravatar: gravatar.url(req.user.email, {s: '100', r: 'x', d: 'retro'}, false)
+      gravatar: gravatar.url(req.user.email, {s: '100', r: 'x', d: 'retro'}, true)
     });
 
   });
