@@ -23,7 +23,7 @@ const controller = {
         order: [['id', 'asc']],
         raw: true
       }).then(weeks => {
-        weeks = weeks.slice(0, 30).reverse();  // take only the five latest weeks
+        weeks = weeks.slice(0, 40).reverse();  // take only the five latest weeks
         weeks.map(week => {
           week.end = moment(week.start).add(6, 'days').format('ddd DD MMM');
           week.start = moment(week.start).format('ddd DD MMM');
