@@ -57,24 +57,53 @@ const standings = (sequelize, DataTypes) => {
         let start = single ? wid : config.goalmine.league_start;
         let end = single ? wid : wid - 1;
 
-        let sql = 'SELECT U.id, U.username, COUNT(S.points) AS games, SUM(S.points) AS points, MIN(S.points) AS min FROM standings S INNER JOIN users U ON U.id = S.user_id WHERE S.week_id >= :start AND S.week_id <= :end GROUP BY U.id, U.username';
-        let curr = models.sequelize.query(sql, { 
-          replacements: { 
-            start: start, 
-            end: end },
-          type: sequelize.QueryTypes.SELECT 
-        });
-        let prev = models.sequelize.query(sql, { 
-          replacements: { 
-            start: start, 
-            end: end - 1 },
-          type: sequelize.QueryTypes.SELECT 
+        let curr = models.Standing.findAll({
+          where: { week_id: { $lte: end, $gte: start } },
+          attributes: ['week_id', 'points'],
+          include: {
+            model: models.User,
+            attributes: ['id', 'username']
+          },
+          order: 'username ASC, points DESC'
+        })
+
+        let prev = models.Standing.findAll({
+          where: { week_id: { $lte: end - 1, $gte: start } },
+          attributes: ['week_id', 'points'],
+          include: {
+            model: models.User,
+            attributes: ['id', 'username']
+          },
+          order: 'username ASC, points DESC'
         });
 
         return Promise.join(curr, prev, (curr, prev) => {
 
-          curr.sort((a, b) => { return b.points - a.points });
-          prev.sort((a, b) => { return b.points - a.points });
+          // function to aggregate scores and sort them
+          let aggregate = arr => {
+            let standings = [],
+                idx = 0,
+                counter = 0,
+                user = null;
+            for (let x = 0; x < arr.length; x++) {
+              let item = arr[x];
+              if (item.user.username != user) {
+                idx = standings.push({ username: item.user.username, points: 0, games: 0, min: 10000, id: item.user.id });
+                counter = 0;
+              }
+              if (counter++ < 30) standings[idx - 1].points += item.points;
+              standings[idx - 1].games++;
+              standings[idx - 1].min = item.points;
+
+              user = item.user.username;
+            }
+            standings.sort((a, b) => { return b.points - a.points });
+            return standings;
+          };
+
+          curr = aggregate(curr);
+          prev = aggregate(prev);
+
           // calculate the rank on each array
           let row = 0,
               rank = 1,
