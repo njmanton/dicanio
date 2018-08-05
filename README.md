@@ -43,5 +43,5 @@ First version of Goalmine to use Node instead of PHP
 
 * **8.0 ([dicanio](https://github.com/njmanton/dicanio)**)
 Summer 2017
-First premiership verison of Goalmine to use Node
+First premiership version of Goalmine to use Node
 
